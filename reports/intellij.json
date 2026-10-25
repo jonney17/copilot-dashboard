@@ -1,0 +1,1155 @@
+{
+  "collector": "intellij",
+  "collectorVersion": "1.1.0",
+  "generatedAt": "2026-10-25T10:16:29.524597+00:00",
+  "ideDirs": [
+    "/Users/tmnghia/Library/Application Support/JetBrains/IntelliJIdea2026.2"
+  ],
+  "copilotHomes": [
+    "/Users/tmnghia/.copilot"
+  ],
+  "pluginDirs": [
+    "/Users/tmnghia/.config/github-copilot"
+  ],
+  "pluginClients": [
+    "copilot-intellij*"
+  ],
+  "ticketPrefix": "LEGO",
+  "totals": {
+    "requests": 2,
+    "billedRequests": 2,
+    "copilotCredits": 1.608653,
+    "copilotCreditsRounded": 1.6,
+    "copilotCreditsRoundedUp": 1.7,
+    "promptTokens": 71964,
+    "completionTokens": 2740,
+    "toolCallRounds": 12,
+    "resolvedModels": [
+      "gpt-6-luna",
+      "mai-code-1.1-flash"
+    ],
+    "sessions": 2,
+    "sessionsWithoutUsage": 0,
+    "premiumRequests": 2.0
+  },
+  "byTicket": {
+    "LEGO-123": {
+      "sessions": 2,
+      "requests": 2,
+      "copilotCredits": 1.608652,
+      "copilotCreditsRounded": 1.6,
+      "copilotCreditsRoundedUp": 1.7,
+      "sessionIds": [
+        "d0ebf8c9-e785-48f0-8b41-b0ba850f7a71",
+        "7fc75e38-cb0d-4f32-97b1-f339497f93cc"
+      ]
+    }
+  },
+  "byWorkspace": {
+    "/Volumes/Data Ext/project/dashboard": {
+      "sessions": 2,
+      "requests": 2,
+      "copilotCredits": 1.608652,
+      "copilotCreditsRounded": 1.6,
+      "copilotCreditsRoundedUp": 1.7
+    }
+  },
+  "byModel": {
+    "mai-code-1.1-flash": {
+      "requests": 1,
+      "copilotCredits": 1.112,
+      "copilotCreditsRounded": 1.1,
+      "copilotCreditsRoundedUp": 1.2
+    },
+    "gpt-6-luna": {
+      "requests": 1,
+      "copilotCredits": 0.496652,
+      "copilotCreditsRounded": 0.5,
+      "copilotCreditsRoundedUp": 0.5
+    }
+  },
+  "account": {
+    "quota": null
+  },
+  "sessions": [
+    {
+      "sessionId": "d0ebf8c9-e785-48f0-8b41-b0ba850f7a71",
+      "ticketKey": "LEGO-123",
+      "creationDate": 1792900997697,
+      "customTitle": "Give me an overview of this project.",
+      "responderUsername": "acp.registry.github-copilot",
+      "inputState": {
+        "selectedModel": {
+          "identifier": "auto",
+          "metadata": {},
+          "modelConfiguration": {
+            "reasoningEffort": null,
+            "contextTier": null,
+            "source": "startup"
+          }
+        }
+      },
+      "requests": [
+        {
+          "requestId": "af576fac-1bce-4786-9120-82840f954b43",
+          "timestamp": 1792901114520,
+          "modelId": "auto",
+          "modeInfo": {
+            "kind": "cli"
+          },
+          "agent": {
+            "id": "copilot-cli",
+            "name": "GitHub Copilot CLI",
+            "extensionVersion": "1.0.96"
+          },
+          "message": {
+            "text": "Give me an overview of this project."
+          },
+          "promptTokenDetails": [],
+          "outputBuffer": null,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792901131480
+          },
+          "response": [
+            {
+              "kind": "autoModeResolution",
+              "resolved": {
+                "id": "mai-code-1.1-flash"
+              }
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "idea-list_directory_tree",
+              "toolCallId": "call_iLuzr9nTuAjYOpDwXC35RcO8",
+              "message": "list_directory_tree",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_oSYhLGZm1PGSmR6QmyQJNdCs",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": false
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_PBuZqj67x9ktthSmmaN0qSbq",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": false
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "glob",
+              "toolCallId": "call_c5KIBGMNM8crlHm0GeUVx0x5",
+              "message": "Finding files",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_N0s97B1vAkYlmHJOQMuQktUC",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_oRYGVEiIFtWtYOXBvFwsS8y3",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_5bMbd0747npdC1hapjE4WnDW",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_CFU7OsQWp064gGgRXzehqXky",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_s68gR39kpTXBVGjnD6RImsr6",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "markdown",
+              "text": "This repo is a local usage-analytics project for GitHub Copilot, not a web app.\n\n- Purpose: collect Copilot usage from VS Code and Copilot CLI logs, normalize them, and generate readable JSON/tree reports.\n- Main parts:\n  - collectors/common.py: shared logic for tickets, credit math, aggregation, and output rendering.\n  - collectors/vscode/: reads VS Code chat/session logs from the user data directory and reports usage by ticket/workspace/model.\n  - collectors/copilot_cli/: reads Copilot CLI session logs from ~/.copilot and emits the same schema for comparison.\n  - reports/: generated output snapshots such as copilot-cli.json and vscode-copilot.json.\n- What the reports include:\n  - session/request totals\n  - AI credits and tokens\n  - ticket attribution (e.g. LEGO-123)\n  - workspace/model breakdown\n  - quota/accounting info\n- In short: it’s a Python-based dashboard/collector for Copilot billing and usage auditing."
+            }
+          ],
+          "copilotCredits": 1.112,
+          "copilotCreditsRounded": 1.1,
+          "copilotCreditsRoundedUp": 1.2,
+          "promptTokens": 40504,
+          "completionTokens": 1180,
+          "usage": {
+            "inputTokens": 134344,
+            "cacheReadTokens": 95360,
+            "cacheWriteTokens": 0,
+            "outputTokens": 1180,
+            "reasoningTokens": 512
+          },
+          "premiumRequestCost": 1.0,
+          "elapsedMs": 16960,
+          "result": {
+            "timings": {
+              "totalElapsed": 16960
+            },
+            "details": "MAI-Code-1.1-Flash • 1.1 credits",
+            "metadata": {
+              "resolvedModel": "mai-code-1.1-flash",
+              "promptTokens": 40504,
+              "outputTokens": 1180,
+              "toolCallRounds": [
+                {
+                  "turnId": "0",
+                  "subAgent": null,
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [
+                    {
+                      "id": "call_iLuzr9nTuAjYOpDwXC35RcO8",
+                      "name": "idea-list_directory_tree"
+                    },
+                    {
+                      "id": "call_oSYhLGZm1PGSmR6QmyQJNdCs",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_PBuZqj67x9ktthSmmaN0qSbq",
+                      "name": "view"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 64
+                  },
+                  "timestamp": 1792901114523,
+                  "endedAt": 1792901120828,
+                  "usage": {
+                    "inputTokens": 29352,
+                    "cacheReadTokens": 1280,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 201,
+                    "reasoningTokens": 64
+                  },
+                  "nanoAiu": 588120000,
+                  "copilotCredits": 0.58812,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "user",
+                  "finishReason": "tool_calls",
+                  "durationMs": 5149,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "1",
+                  "subAgent": null,
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [
+                    {
+                      "id": "call_c5KIBGMNM8crlHm0GeUVx0x5",
+                      "name": "glob"
+                    },
+                    {
+                      "id": "call_N0s97B1vAkYlmHJOQMuQktUC",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_oRYGVEiIFtWtYOXBvFwsS8y3",
+                      "name": "view"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 64
+                  },
+                  "timestamp": 1792901120829,
+                  "endedAt": 1792901124080,
+                  "usage": {
+                    "inputTokens": 29860,
+                    "cacheReadTokens": 29440,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 196,
+                    "reasoningTokens": 64
+                  },
+                  "nanoAiu": 90800000,
+                  "copilotCredits": 0.0908,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 3018,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "2",
+                  "subAgent": null,
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [
+                    {
+                      "id": "call_5bMbd0747npdC1hapjE4WnDW",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_CFU7OsQWp064gGgRXzehqXky",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_s68gR39kpTXBVGjnD6RImsr6",
+                      "name": "view"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 0
+                  },
+                  "timestamp": 1792901124081,
+                  "endedAt": 1792901127148,
+                  "usage": {
+                    "inputTokens": 34628,
+                    "cacheReadTokens": 29952,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 184,
+                    "reasoningTokens": 0
+                  },
+                  "nanoAiu": 175504000,
+                  "copilotCredits": 0.175504,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 3020,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "3",
+                  "subAgent": null,
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 384
+                  },
+                  "timestamp": 1792901127149,
+                  "endedAt": 1792901131480,
+                  "usage": {
+                    "inputTokens": 40504,
+                    "cacheReadTokens": 34688,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 599,
+                    "reasoningTokens": 384
+                  },
+                  "nanoAiu": 257576000,
+                  "copilotCredits": 0.257576,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "stop",
+                  "durationMs": 4303,
+                  "aiCreditsStatus": "complete"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "sessionUsage": {
+        "totalNanoAiu": 1112000000,
+        "copilotCredits": 1.112,
+        "totalPremiumRequests": 1,
+        "totalUserRequests": 1,
+        "aiCreditsStatus": "complete",
+        "codeChanges": {
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "filesModifiedCount": 0,
+          "filesModified": []
+        },
+        "matchesRequests": true
+      },
+      "backgroundCalls": [],
+      "quotaSnapshot": null,
+      "sessionErrors": [],
+      "_source": {
+        "file": "/Users/tmnghia/Library/Application Support/JetBrains/IntelliJIdea2026.2/aia-task-history/d0ebf8c9-e785-48f0-8b41-b0ba850f7a71.events",
+        "linkedFile": "/Users/tmnghia/.copilot/session-state/b873e641-181d-4ace-9ad0-79fcf590c66e/events.jsonl",
+        "workspace": {
+          "id": "3LAdfT0cWHD66seHeQAvX0Db61V",
+          "folder": "/Volumes/Data Ext/project/dashboard",
+          "kind": "intellij",
+          "repository": "jonney17/copilot-dashboard",
+          "branch": "feat/copilot-cli-collector",
+          "client": "JetBrains.IntelliJ IDEA"
+        },
+        "ide": {
+          "product": "IntelliJIdea2026.2",
+          "build": "IU-262.10968.63",
+          "configDir": "/Users/tmnghia/Library/Application Support/JetBrains/IntelliJIdea2026.2",
+          "taskId": "d0ebf8c9-e785-48f0-8b41-b0ba850f7a71",
+          "agentId": "acp.registry.github-copilot",
+          "chatModelId": "agent_acp.registry.github-copilot",
+          "modifiedAt": 1792900997697,
+          "contextWindow": {
+            "used": 45904,
+            "size": 128000
+          },
+          "copilotVersion": "1.0.96"
+        },
+        "ticket": {
+          "field": "response",
+          "requestIndex": 0
+        }
+      },
+      "_totals": {
+        "requests": 1,
+        "billedRequests": 1,
+        "copilotCredits": 1.112,
+        "copilotCreditsRounded": 1.1,
+        "copilotCreditsRoundedUp": 1.2,
+        "promptTokens": 40504,
+        "completionTokens": 1180,
+        "toolCallRounds": 4,
+        "resolvedModels": [
+          "mai-code-1.1-flash"
+        ]
+      },
+      "acpSessionId": "b873e641-181d-4ace-9ad0-79fcf590c66e",
+      "usageSource": "copilot-cli",
+      "integration": "ai-assistant"
+    },
+    {
+      "sessionId": "7fc75e38-cb0d-4f32-97b1-f339497f93cc",
+      "ticketKey": "LEGO-123",
+      "creationDate": 1792902174925,
+      "customTitle": "[session from intellij] give me an overview of this project",
+      "responderUsername": "GitHub Copilot (JetBrains plugin)",
+      "inputState": {
+        "selectedModel": {
+          "identifier": null,
+          "metadata": {},
+          "modelConfiguration": {}
+        }
+      },
+      "requests": [
+        {
+          "requestId": "abab4c6a-3ebb-4b6c-be2f-6e379d3b6876",
+          "timestamp": 1792902181777,
+          "modelId": null,
+          "modeInfo": {
+            "kind": "cli"
+          },
+          "agent": {
+            "id": "copilot-cli",
+            "name": "GitHub Copilot CLI",
+            "extensionVersion": "1.0.94"
+          },
+          "message": {
+            "text": "[session from intellij] give me an overview of this project"
+          },
+          "promptTokenDetails": [],
+          "outputBuffer": null,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792902215457
+          },
+          "response": [
+            {
+              "kind": "autoModeResolution",
+              "resolved": {
+                "id": "gpt-6-luna"
+              }
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "search_code_subagent",
+              "toolCallId": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "message": "search_code_subagent",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "subAgent",
+              "toolCallId": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "name": "Search Subagent",
+              "agentType": "search-subagent",
+              "model": "copilot-search-a",
+              "prompt": "Find relevant code snippets for: Summarize this project's structure and purpose from README, package/config files, and key source entry points. Identify framework, major features, and how to run it. Don't edit files.\n\nCurrent working directory: /Volumes/Data Ext/project/dashboard\n\nDirectory structure:\ncollectors/\nreports/",
+              "isComplete": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "read_file",
+              "toolCallId": "chatcmpl-tool-acd06a3db8a110ea",
+              "message": "read_file",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": false
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-bb3284fc00b14a42",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-a9fde74e132fb607",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-a071661034713649",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-899afcd861ab3d70",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-a6937e06cf8cab40",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "read_file",
+              "toolCallId": "chatcmpl-tool-aff44d0d6a273c66",
+              "message": "read_file",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "read_file",
+              "toolCallId": "chatcmpl-tool-b51be2256b7ea871",
+              "message": "read_file",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "read_file",
+              "toolCallId": "chatcmpl-tool-9f1af35a199cae29",
+              "message": "read_file",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-87090f185ed3d539",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-aa34a92ab7572bf5",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-bd99ed0314acddf9",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-b6aceedf097c5ff8",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-b7839ce041c8f72d",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-a4cd25cc921f295c",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-a66a47b4aeda297e",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-a6aae7da992f9cc5",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "file_search",
+              "toolCallId": "chatcmpl-tool-918f03e2d16042c3",
+              "message": "file_search",
+              "isComplete": true,
+              "subAgent": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "glob",
+              "toolCallId": "call_xe8XNXKlklYYx52uuqs95hdP",
+              "message": "Finding files",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_6nMggeTLVNSqmTQTfoEZMGIM",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": false
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "bash",
+              "toolCallId": "call_TAUzvUnAHICKBsEfAFkDbHTg",
+              "message": "Running command",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_RJJ2I8uerqUPVpwCIE71AwOP",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_gZt2uAubBj0Dq1aBdzxdsG3W",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_U1Y9t9Akm96KqMSPcN92p5na",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_VyUymk8pkNIOGFGk9fcP1J4U",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "bash",
+              "toolCallId": "call_n6O6NFbFmJHIsGOHizEmPuQ8",
+              "message": "Running command",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "markdown",
+              "text": "This repository is a **local GitHub Copilot usage reporting toolkit**, not a web dashboard. It has three Python collectors that read usage data stored on your machine and emit JSON reports or a readable tree. They use only the Python standard library and make no network calls.\n\n- `collectors/vscode/` reads VS Code Copilot Chat session storage.\n- `collectors/copilot_cli/` reads Copilot CLI event logs.\n- `collectors/intellij/` combines JetBrains AI Assistant chat history with linked Copilot CLI usage logs.\n- `collectors/common.py` provides shared config handling, ticket detection, credit rounding, totals, and output formatting.\n- `reports/` contains example/generated reports.\n\nThe collectors normalize their results into a common session/request/tool-call-round schema, with totals by ticket, workspace, and model. They can also report tokens, credits, and—where available—quota data. Ticket detection defaults to the `LEGO-123` pattern and can be configured.\n\nFor example, run `python3 collectors/vscode/collect.py --format tree` to print a readable report, or use `--out reports/vscode-copilot.json` to write JSON. Each collector has a README with its data locations, configuration, and options.\n\nThe worktree currently has uncommitted changes, including changes to the Copilot CLI collector and reports, plus new IntelliJ collector files."
+            }
+          ],
+          "copilotCredits": 0.4966525,
+          "copilotCreditsRounded": 0.5,
+          "copilotCreditsRoundedUp": 0.5,
+          "promptTokens": 31460,
+          "completionTokens": 1560,
+          "usage": {
+            "inputTokens": 107253,
+            "cacheReadTokens": 72270,
+            "cacheWriteTokens": 31457,
+            "outputTokens": 1560,
+            "reasoningTokens": 249
+          },
+          "premiumRequestCost": 1.0,
+          "elapsedMs": 33680,
+          "result": {
+            "timings": {
+              "totalElapsed": 33680
+            },
+            "details": "GPT-6 Luna • 0.5 credits",
+            "metadata": {
+              "resolvedModel": "gpt-6-luna",
+              "promptTokens": 31460,
+              "outputTokens": 1560,
+              "toolCallRounds": [
+                {
+                  "turnId": "0",
+                  "subAgent": null,
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+                      "name": "search_code_subagent"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 0
+                  },
+                  "timestamp": 1792902181793,
+                  "endedAt": 1792902190482,
+                  "usage": {
+                    "inputTokens": 18237,
+                    "cacheReadTokens": 0,
+                    "cacheWriteTokens": 18234,
+                    "outputTokens": 61,
+                    "reasoningTokens": 0
+                  },
+                  "nanoAiu": 231005000,
+                  "copilotCredits": 0.231005,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "user",
+                  "finishReason": "tool_calls",
+                  "durationMs": 2400,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "0",
+                  "subAgent": {
+                    "id": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+                    "name": "Search Subagent"
+                  },
+                  "modelId": "copilot-search-a",
+                  "toolCalls": [
+                    {
+                      "id": "chatcmpl-tool-acd06a3db8a110ea",
+                      "name": "read_file"
+                    },
+                    {
+                      "id": "chatcmpl-tool-bb3284fc00b14a42",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-a9fde74e132fb607",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-a071661034713649",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-899afcd861ab3d70",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-a6937e06cf8cab40",
+                      "name": "file_search"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": null
+                  },
+                  "timestamp": 1792902185402,
+                  "endedAt": 1792902187332,
+                  "usage": {
+                    "inputTokens": 3138,
+                    "cacheReadTokens": 965,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 172,
+                    "reasoningTokens": null
+                  },
+                  "nanoAiu": 0,
+                  "copilotCredits": 0.0,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "sub-agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 1880,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "1",
+                  "subAgent": {
+                    "id": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+                    "name": "Search Subagent"
+                  },
+                  "modelId": "copilot-search-a",
+                  "toolCalls": [
+                    {
+                      "id": "chatcmpl-tool-aff44d0d6a273c66",
+                      "name": "read_file"
+                    },
+                    {
+                      "id": "chatcmpl-tool-b51be2256b7ea871",
+                      "name": "read_file"
+                    },
+                    {
+                      "id": "chatcmpl-tool-9f1af35a199cae29",
+                      "name": "read_file"
+                    },
+                    {
+                      "id": "chatcmpl-tool-87090f185ed3d539",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-aa34a92ab7572bf5",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-bd99ed0314acddf9",
+                      "name": "file_search"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": null
+                  },
+                  "timestamp": 1792902187333,
+                  "endedAt": 1792902188368,
+                  "usage": {
+                    "inputTokens": 3452,
+                    "cacheReadTokens": 3137,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 209,
+                    "reasoningTokens": null
+                  },
+                  "nanoAiu": 0,
+                  "copilotCredits": 0.0,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "sub-agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 984,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "2",
+                  "subAgent": {
+                    "id": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+                    "name": "Search Subagent"
+                  },
+                  "modelId": "copilot-search-a",
+                  "toolCalls": [
+                    {
+                      "id": "chatcmpl-tool-b6aceedf097c5ff8",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-b7839ce041c8f72d",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-a4cd25cc921f295c",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-a66a47b4aeda297e",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-a6aae7da992f9cc5",
+                      "name": "file_search"
+                    },
+                    {
+                      "id": "chatcmpl-tool-918f03e2d16042c3",
+                      "name": "file_search"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": null
+                  },
+                  "timestamp": 1792902188370,
+                  "endedAt": 1792902189219,
+                  "usage": {
+                    "inputTokens": 4148,
+                    "cacheReadTokens": 3451,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 133,
+                    "reasoningTokens": null
+                  },
+                  "nanoAiu": 0,
+                  "copilotCredits": 0.0,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "sub-agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 783,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "3",
+                  "subAgent": {
+                    "id": "call_fReMTuRV8Ut7WmqBQmJrtTAs",
+                    "name": "Search Subagent"
+                  },
+                  "modelId": "copilot-search-a",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": null
+                  },
+                  "timestamp": 1792902189221,
+                  "endedAt": 1792902190455,
+                  "usage": {
+                    "inputTokens": 4476,
+                    "cacheReadTokens": 4147,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 191,
+                    "reasoningTokens": null
+                  },
+                  "nanoAiu": 0,
+                  "copilotCredits": 0.0,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "sub-agent",
+                  "finishReason": "stop",
+                  "durationMs": 1014,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "1",
+                  "subAgent": null,
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_xe8XNXKlklYYx52uuqs95hdP",
+                      "name": "glob"
+                    },
+                    {
+                      "id": "call_6nMggeTLVNSqmTQTfoEZMGIM",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_TAUzvUnAHICKBsEfAFkDbHTg",
+                      "name": "bash"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 43
+                  },
+                  "timestamp": 1792902190483,
+                  "endedAt": 1792902198028,
+                  "usage": {
+                    "inputTokens": 20976,
+                    "cacheReadTokens": 18234,
+                    "cacheWriteTokens": 2739,
+                    "outputTokens": 124,
+                    "reasoningTokens": 43
+                  },
+                  "nanoAiu": 58701500,
+                  "copilotCredits": 0.0587015,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 2878,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "2",
+                  "subAgent": null,
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_RJJ2I8uerqUPVpwCIE71AwOP",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_gZt2uAubBj0Dq1aBdzxdsG3W",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_U1Y9t9Akm96KqMSPcN92p5na",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_VyUymk8pkNIOGFGk9fcP1J4U",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_n6O6NFbFmJHIsGOHizEmPuQ8",
+                      "name": "bash"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 46
+                  },
+                  "timestamp": 1792902198029,
+                  "endedAt": 1792902210390,
+                  "usage": {
+                    "inputTokens": 21366,
+                    "cacheReadTokens": 20973,
+                    "cacheWriteTokens": 390,
+                    "outputTokens": 219,
+                    "reasoningTokens": 46
+                  },
+                  "nanoAiu": 36828000,
+                  "copilotCredits": 0.036828,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 2700,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "3",
+                  "subAgent": null,
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 160
+                  },
+                  "timestamp": 1792902210392,
+                  "endedAt": 1792902215457,
+                  "usage": {
+                    "inputTokens": 31460,
+                    "cacheReadTokens": 21363,
+                    "cacheWriteTokens": 10094,
+                    "outputTokens": 451,
+                    "reasoningTokens": 160
+                  },
+                  "nanoAiu": 170118000,
+                  "copilotCredits": 0.170118,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "stop",
+                  "durationMs": 5031,
+                  "aiCreditsStatus": "complete"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "sessionUsage": {
+        "totalNanoAiu": 496652500,
+        "copilotCredits": 0.4966525,
+        "totalPremiumRequests": 1,
+        "totalUserRequests": 1,
+        "aiCreditsStatus": "complete",
+        "codeChanges": {
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "filesModifiedCount": 0,
+          "filesModified": []
+        },
+        "matchesRequests": true
+      },
+      "backgroundCalls": [],
+      "quotaSnapshot": null,
+      "sessionErrors": [],
+      "_source": {
+        "file": "/Users/tmnghia/.copilot/session-state/7fc75e38-cb0d-4f32-97b1-f339497f93cc/events.jsonl",
+        "linkedFile": null,
+        "workspace": {
+          "id": null,
+          "folder": "/Volumes/Data Ext/project/dashboard",
+          "kind": "intellij",
+          "gitRoot": "/Volumes/Data Ext/project/dashboard",
+          "repository": "jonney17/copilot-dashboard",
+          "branch": "feat/copilot-cli-collector",
+          "client": "copilot-intellij",
+          "copilotVersion": "1.0.94"
+        },
+        "ide": {
+          "product": "IntelliJ IDEA Ultimate",
+          "productCode": "iu",
+          "build": null,
+          "projectKey": "3LAg26KTAWOFlHyROF6axZvGwnL",
+          "pluginVersion": "1.19.2-261-macos-arm64",
+          "agentId": "copilot-intellij",
+          "copilotVersion": "1.0.94",
+          "contextWindow": null
+        },
+        "ticket": {
+          "field": "response",
+          "requestIndex": 0
+        }
+      },
+      "_totals": {
+        "requests": 1,
+        "billedRequests": 1,
+        "copilotCredits": 0.496652,
+        "copilotCreditsRounded": 0.5,
+        "copilotCreditsRoundedUp": 0.5,
+        "promptTokens": 31460,
+        "completionTokens": 1560,
+        "toolCallRounds": 8,
+        "resolvedModels": [
+          "gpt-6-luna"
+        ]
+      },
+      "acpSessionId": null,
+      "usageSource": "copilot-cli",
+      "integration": "copilot-plugin"
+    }
+  ],
+  "errors": [],
+  "byIntegration": {
+    "ai-assistant": {
+      "sessions": 1,
+      "requests": 1,
+      "copilotCredits": 1.112,
+      "copilotCreditsRounded": 1.1,
+      "copilotCreditsRoundedUp": 1.2
+    },
+    "copilot-plugin": {
+      "sessions": 1,
+      "requests": 1,
+      "copilotCredits": 0.496652,
+      "copilotCreditsRounded": 0.5,
+      "copilotCreditsRoundedUp": 0.5
+    }
+  }
+}

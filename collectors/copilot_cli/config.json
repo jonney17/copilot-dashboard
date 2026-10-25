@@ -1,8 +1,10 @@
 {
-  "_comment": "Defaults for collect.py. Command-line options override these. Relative paths are relative to this file; ~ and $VARS are expanded. copilotHomes [] = $COPILOT_HOME or ~/.copilot. out null = stdout; e.g. \"../../reports/copilot-cli.json\". Note: a file path here also receives --format tree output unless you pass --out -.",
+  "_comment": "Defaults for collect.py. Command-line options override these. Relative paths are relative to this file; ~ and $VARS are expanded. copilotHomes [] = $COPILOT_HOME or ~/.copilot. out null = stdout; e.g. \"../../reports/copilot-cli.json\". excludeClients: client_name globs to skip (JetBrains AI Assistant and Copilot-plugin sessions are reported by collectors/intellij). vscodeUserDirs [] = auto-detect VS Code (its agent-host.db marks CLI sessions opened from VS Code). Note: a file path here also receives --format tree output unless you pass --out -.",
   "copilotHomes": [],
   "format": "json",
   "out": null,
   "includeEmpty": false,
-  "ticketPrefix": "LEGO"
+  "ticketPrefix": "LEGO",
+  "excludeClients": ["JetBrains*", "copilot-intellij*"],
+  "vscodeUserDirs": []
 }

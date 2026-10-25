@@ -64,6 +64,19 @@ def credit_fields(value):
     }
 
 
+def vscode_user_dirs():
+    """VS Code (stable + Insiders) "User" directories for the current OS."""
+    home = os.path.expanduser("~")
+    if sys.platform == "darwin":
+        base = os.path.join(home, "Library", "Application Support")
+    elif sys.platform.startswith("win"):
+        base = os.environ.get("APPDATA", os.path.join(home, "AppData", "Roaming"))
+    else:
+        base = os.environ.get("XDG_CONFIG_HOME", os.path.join(home, ".config"))
+    candidates = [os.path.join(base, name, "User") for name in ("Code", "Code - Insiders")]
+    return [d for d in candidates if os.path.isdir(d)]
+
+
 # --------------------------------------------------------------------------- #
 # Tickets
 # --------------------------------------------------------------------------- #
@@ -148,6 +161,24 @@ def summarise(sessions, workspace_key):
     totals = totals_for(all_requests)
     totals["sessions"] = len(sessions)
     return {"totals": totals, "byTicket": by_ticket, "byWorkspace": by_workspace, "byModel": by_model}
+
+
+def by_request_surface(sessions, session_surface):
+    """Buckets keyed by each request's `surface` (falling back to session_surface(session)), so a
+    session continued on another surface (e.g. CLI session resumed in VS Code) is split correctly."""
+    buckets = {}
+    for s in sessions:
+        seen = set()
+        for r in s["requests"]:
+            key = r.get("surface") or session_surface(s)
+            b = buckets.setdefault(key, {"sessions": 0, "requests": 0, "copilotCredits": 0.0,
+                                         "copilotCreditsRounded": 0.0, "copilotCreditsRoundedUp": 0.0})
+            if key not in seen:
+                b["sessions"] += 1
+                seen.add(key)
+            b["requests"] += 1
+            _add_credits(b, r)
+    return buckets
 
 
 # --------------------------------------------------------------------------- #

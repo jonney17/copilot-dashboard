@@ -44,6 +44,12 @@ Defaults come from [`config.json`](config.json) next to the script, or another f
 - Missing folders for `out` are created.
 - The real file can't hold `//` comments; they appear above for explanation only.
 
+**Agent-host sessions aren't here.** Copilot agent sessions run through VS Code's agent host
+(`globalStorage/agent-host.db`) use the Copilot CLI runtime. They are stored in
+`~/.copilot/session-state/`, not in `chatSessions/`, and are reported by the
+[Copilot CLI collector](../copilot_cli/README.md#sessions-used-from-vs-codes-agent-host) with
+`surface: "vscode/agent-host"`.
+
 Verified against Copilot Chat 0.71.0 / VS Code 1.143.1 (macOS). The on-disk format is
 internal to VS Code and can change between releases.
 

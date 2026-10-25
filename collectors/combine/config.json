@@ -1,0 +1,11 @@
+{
+  "_comment": "Defaults for combine.py. Command-line options override these. Relative paths are relative to this file; ~ and $VARS are expanded. inputs: collector report files to combine. run true = run the three collectors (each with its own config) instead of reading inputs. out null = stdout; e.g. \"../../reports/combined.json\". Note: a file path here also receives --format tree output unless you pass --out -.",
+  "inputs": [
+    "../../reports/vscode-copilot.json",
+    "../../reports/copilot-cli.json",
+    "../../reports/intellij.json"
+  ],
+  "run": false,
+  "format": "json",
+  "out": null
+}
