@@ -2,6 +2,8 @@
 
 Collects per-session and per-request Copilot Chat usage (credits, tokens, models,
 tool-call rounds) from VS Code's local storage. No network calls, standard library only.
+Shared code (tickets, rounding, totals, config, tree output) is in [`../common.py`](../common.py); the
+[Copilot CLI collector](../copilot_cli/README.md) emits the same schema.
 
 ```bash
 python3 collectors/vscode/collect.py --format tree                    # readable tree
