@@ -1,5 +1,11 @@
 {
-  "_comment": "Master collector config (collect.py). The single place to configure all collectors; their own collectors/*/config.json are NOT used by collect.py. Relative paths: outputDir and *Dirs/*Homes resolve against this file's folder; report file names resolve against outputDir. ~ and $VARS are expanded. Empty dir lists [] mean auto-detect. Keys starting with _ are ignored; unknown keys are an error.",
+  "_comment": "Master collector config (collect.py). The single place to configure all collectors; their own collectors/*/config.json are NOT used by collect.py. Relative paths: outputDir and *Dirs/*Homes resolve against this file's folder; report file names resolve against outputDir. ~ and $VARS are expanded. Empty dir lists [] mean auto-detect. member.id null = GitHub login from ~/.copilot/config.json, else the OS user; set it to the team's id for you (e.g. your Jira or GitHub user). Keys starting with _ are ignored; unknown keys are an error.",
+
+  "member": {
+    "id": null,
+    "name": null,
+    "email": null
+  },
 
   "ticketPrefix": "LEGO",
   "includeEmpty": false,
