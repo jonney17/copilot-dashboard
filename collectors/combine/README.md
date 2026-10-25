@@ -38,17 +38,32 @@ report
 ├── byTicket            {"LEGO-123" | "(no ticket)": {sessions, sessionIds[], requests, credits ×3}}  ← per-ticket view
 ├── byWorkspace, byModel
 ├── bySource            {"vscode-copilot-chat" | "copilot-cli" | "intellij": {…}}
-├── bySurface           {"vscode" | "copilot-cli" | "intellij/ai-assistant" | "intellij/copilot-plugin": {…}}
+├── bySurface           per request: {"vscode/chat" | "vscode/agent-host" | "copilot-cli" |
+│                                     "intellij/ai-assistant" | "intellij/copilot-plugin": {…}}
 ├── account.quota       latest quota snapshot from any report (account-wide "X of 200 used")
 ├── duplicatesDropped[] {sessionId, droppedFrom, keptFrom}
 ├── sessions[]          every session as its collector emitted it, plus:
-│                         surface              (as in bySurface)
+│                         surface              as in bySurface, or "mixed" when its requests differ
 │                         _source.collector    which report it came from
 └── errors[]            unreadable inputs + each report's own errors (tagged with collector)
 ```
 
 "credits ×3" = `copilotCredits`, `copilotCreditsRounded`, `copilotCreditsRoundedUp`; rounded
 totals are sums of per-request rounded values, as in every collector.
+
+## Surfaces
+
+| Surface | Source |
+|---|---|
+| `vscode/chat` | VS Code Copilot Chat panel (`chatSessions/`), VS Code collector |
+| `vscode/agent-host` | Copilot CLI sessions used from VS Code's agent host, CLI collector (per request) |
+| `copilot-cli` | Copilot CLI in a terminal |
+| `intellij/ai-assistant` | JetBrains AI Assistant's Copilot ACP agent |
+| `intellij/copilot-plugin` | GitHub Copilot JetBrains plugin |
+
+`bySurface` adds up **requests**, using each request's `surface` when it has one, so a CLI
+session started in the terminal and continued in VS Code is split between `copilot-cli` and
+`vscode/agent-host`. Its session-level `surface` is then `"mixed"`.
 
 ## De-duplication
 

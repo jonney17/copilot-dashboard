@@ -27,7 +27,8 @@ import urllib.parse
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common import (DEFAULT_TICKET_PREFIX, add_common_args, credit_fields, find_ticket, load_config,  # noqa: E402
-                    now_iso, pick, render_tree, summarise, ticket_pattern, totals_for, write_report)
+                    now_iso, pick, render_tree, summarise, ticket_pattern, totals_for, vscode_user_dirs,
+                    write_report)
 
 COLLECTOR = "vscode-copilot-chat"
 COLLECTOR_VERSION = "1.3.0"
@@ -45,19 +46,6 @@ BUILTIN_DEFAULTS = {
 # --------------------------------------------------------------------------- #
 # Locating storage
 # --------------------------------------------------------------------------- #
-
-def default_user_dirs():
-    """VS Code (stable + Insiders) "User" directories for the current OS."""
-    home = os.path.expanduser("~")
-    if sys.platform == "darwin":
-        base = os.path.join(home, "Library", "Application Support")
-    elif sys.platform.startswith("win"):
-        base = os.environ.get("APPDATA", os.path.join(home, "AppData", "Roaming"))
-    else:
-        base = os.environ.get("XDG_CONFIG_HOME", os.path.join(home, ".config"))
-    candidates = [os.path.join(base, name, "User") for name in ("Code", "Code - Insiders")]
-    return [d for d in candidates if os.path.isdir(d)]
-
 
 def find_session_files(user_dir):
     """Yield (path, workspace) for every chat-session JSONL under a User dir."""
@@ -277,7 +265,7 @@ def main(argv=None):
     def opt(cli_value, key):
         return config[key] if cli_value is None else cli_value
 
-    user_dirs = args.user_dir or config["userDirs"] or default_user_dirs()
+    user_dirs = args.user_dir or config["userDirs"] or vscode_user_dirs()
     if not user_dirs:
         ap.error("no VS Code User directory found; pass --user-dir or set userDirs in the config")
     fmt = opt(args.format, "format")

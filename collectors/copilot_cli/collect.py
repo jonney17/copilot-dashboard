@@ -15,6 +15,7 @@ Usage:
     python3 collect.py --ticket-prefix ABC    # detect ABC-123 instead of LEGO-123
     python3 collect.py --config team.json     # other config file (default: ./config.json)
     python3 collect.py --exclude-client ''    # also count IDE-driven sessions (default skips JetBrains ones)
+    python3 collect.py --vscode-user-dir PATH # VS Code User dir whose agent-host.db tags VS Code-opened sessions
 
 Precedence: command-line option > config file > built-in defaults.
 
@@ -25,15 +26,16 @@ import fnmatch
 import glob
 import json
 import os
+import sqlite3
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from common import (DEFAULT_TICKET_PREFIX, add_common_args, credit_fields, epoch_ms, find_ticket,  # noqa: E402
-                    fmt_num, load_config, now_iso, render_tree, round_credits, summarise, ticket_pattern,
-                    totals_for, write_report)
+from common import (DEFAULT_TICKET_PREFIX, add_common_args, by_request_surface, credit_fields,  # noqa: E402
+                    epoch_ms, find_ticket, fmt_credits, fmt_num, iso, load_config, now_iso, render_tree, round_credits,
+                    summarise, ticket_pattern, totals_for, vscode_user_dirs, write_report)
 
 COLLECTOR = "copilot-cli"
-COLLECTOR_VERSION = "1.2.0"
+COLLECTOR_VERSION = "1.3.0"
 NANO = 1e9  # 1 AI credit = 1e9 nano-AIU
 DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
 # Used when neither the command line nor the config file sets a value.
@@ -47,7 +49,12 @@ BUILTIN_DEFAULTS = {
     # "JetBrains.*"; the GitHub Copilot plugin: "copilot-intellij") and are reported by
     # collectors/intellij instead, so counting them here would double count.
     "excludeClients": ["JetBrains*", "copilot-intellij*"],
+    # VS Code User dirs whose globalStorage/agent-host.db lists the CLI sessions VS Code opened.
+    "vscodeUserDirs": [],    # empty -> auto-detect Code / Code - Insiders
 }
+SURFACE_CLI = "copilot-cli"
+SURFACE_VSCODE = "vscode/agent-host"
+CLI_INITIATORS = ("github/cli",)  # sessions started in the terminal (later requests may come from VS Code)
 
 
 # --------------------------------------------------------------------------- #
@@ -350,6 +357,72 @@ def build_session(session_dir, pattern, prefix):
 
 
 # --------------------------------------------------------------------------- #
+# VS Code agent host
+# --------------------------------------------------------------------------- #
+
+def read_vscode_agent_host(user_dirs):
+    """CLI session id -> how VS Code's agent host knows it, from globalStorage/agent-host.db.
+
+    VS Code's agent host runs Copilot on this same CLI runtime: sessions it opens or creates are
+    catalogued in sessions_v2 as "copilotcli:/<sessionId>". Opened read-only; never written."""
+    index = {}
+    for user_dir in user_dirs:
+        db = os.path.join(user_dir, "globalStorage", "agent-host.db")
+        if not os.path.isfile(db):
+            continue
+        try:
+            con = sqlite3.connect("file:%s?mode=ro" % db, uri=True)
+            try:
+                meta = dict(con.execute("SELECT key, value FROM metadata"))
+                rows = con.execute("SELECT session_uri, registration_source, payload, modified_time "
+                                   "FROM sessions_v2 WHERE provider = 'copilotcli'").fetchall()
+                chats = con.execute("SELECT owner_session_uri, chat_uri FROM chats_v2").fetchall()
+            finally:
+                con.close()
+        except sqlite3.Error:
+            continue
+        for uri, registration, payload, modified in rows:
+            if meta.get("sessionTombstone:" + uri) == "true":
+                continue
+            try:
+                data = (json.loads(payload or "{}").get("data") or {})
+            except ValueError:
+                data = {}
+            initiator = ((data.get("_meta") or {}).get("vscode.session.initiator") or {}).get("name")
+            try:
+                imported_at = json.loads(meta.get("sessionStateImported:" + uri) or "{}").get("at")
+            except ValueError:
+                imported_at = None
+            own = [c for owner, c in chats if owner == uri]
+            index[uri.split(":/", 1)[-1]] = {
+                "sessionUri": uri, "initiator": initiator, "importedAt": imported_at,
+                "registrationSource": registration, "modifiedTime": modified, "title": data.get("summary"),
+                "chats": sum(1 for c in own if "://subagent/" not in c),
+                "subAgentChats": sum(1 for c in own if "://subagent/" in c),
+                "dbFile": db,
+            }
+    return index
+
+
+def tag_surfaces(session, agent_host):
+    """Set request["surface"]: "vscode/agent-host" for requests sent from VS Code, else "copilot-cli".
+
+    A session VS Code created is VS Code throughout. A session started in the terminal
+    (initiator github/cli) counts as VS Code from the moment VS Code imported it; the event log
+    doesn't record which client sent each prompt, so this boundary is a best guess."""
+    info = agent_host.get(session["sessionId"])
+    session["_source"]["vscodeAgentHost"] = info
+    for r in session["requests"]:
+        if not info:
+            r["surface"] = SURFACE_CLI
+        elif info["initiator"] not in CLI_INITIATORS:
+            r["surface"] = SURFACE_VSCODE
+        else:
+            after_import = info["importedAt"] and r["timestamp"] and r["timestamp"] >= info["importedAt"]
+            r["surface"] = SURFACE_VSCODE if after_import else SURFACE_CLI
+
+
+# --------------------------------------------------------------------------- #
 # Report
 # --------------------------------------------------------------------------- #
 
@@ -374,8 +447,10 @@ def excluded_client(session_dir, exclude_clients):
     return next((pat for pat in exclude_clients if pat and fnmatch.fnmatch(client, pat)), None)
 
 
-def collect(copilot_homes, include_empty=False, ticket_prefix=DEFAULT_TICKET_PREFIX, exclude_clients=()):
+def collect(copilot_homes, include_empty=False, ticket_prefix=DEFAULT_TICKET_PREFIX, exclude_clients=(),
+            vscode_dirs=()):
     pattern = ticket_pattern(ticket_prefix)
+    agent_host = read_vscode_agent_host(vscode_dirs)
     sessions, errors, excluded = [], [], []
     for home in copilot_homes:
         for session_dir in find_session_dirs(home):
@@ -389,6 +464,7 @@ def collect(copilot_homes, include_empty=False, ticket_prefix=DEFAULT_TICKET_PRE
             except (OSError, ValueError, KeyError, IndexError, TypeError) as exc:
                 errors.append({"file": session_dir, "error": "%s: %s" % (type(exc).__name__, exc)})
                 continue
+            tag_surfaces(session, agent_host)
             if include_empty or session["requests"]:
                 sessions.append(session)
     sessions.sort(key=lambda s: s.get("creationDate") or 0)
@@ -400,7 +476,9 @@ def collect(copilot_homes, include_empty=False, ticket_prefix=DEFAULT_TICKET_PRE
         "ticketPrefix": ticket_prefix.upper(),
         "excludeClients": list(exclude_clients),
         "excludedSessions": excluded,
+        "vscodeUserDirs": list(vscode_dirs),
         **summarise(sessions, lambda s: s["_source"]["workspace"]["folder"] or "(unknown cwd)"),
+        "bySurface": by_request_surface(sessions, lambda s: SURFACE_CLI),
         "account": {"quota": account_quota(sessions)},
         "sessions": sessions,
         "errors": errors,
@@ -422,6 +500,9 @@ def render(report):
                                  q.get("remainingPercentage"), q.get("resetDate")))
     header.append("├── premiumRequests=%s  backgroundCredits=%s"
                   % (report["totals"]["premiumRequests"], fmt_num(report["totals"]["backgroundCredits"])))
+    for name, b in report["bySurface"].items():
+        header.append("├── surface %s  sessions=%d requests=%d credits=%s"
+                      % (name, b["sessions"], b["requests"], fmt_credits(b)))
     for x in report["excludedSessions"]:
         header.append("├── skipped %s  client=%s  (excludeClients %s)" % (x["sessionId"], x["client"], x["excludedBy"]))
 
@@ -429,6 +510,10 @@ def render(report):
         lines = ["├── repository=%s  branch=%s  copilotVersion=%s"
                  % (s["_source"]["workspace"]["repository"], s["_source"]["workspace"]["branch"],
                     s["_source"]["workspace"]["copilotVersion"])]
+        ah = s["_source"].get("vscodeAgentHost")
+        if ah:
+            lines.append("├── opened in VS Code agent host  initiator=%s  importedAt=%s  chats=%s subAgentChats=%s"
+                         % (ah["initiator"], iso(ah["importedAt"]), ah["chats"], ah["subAgentChats"]))
         u = s["sessionUsage"]
         if u:
             lines.append("├── sessionUsage (CLI running total) credits=%s premiumRequests=%s matchesRequests=%s"
@@ -438,13 +523,16 @@ def render(report):
                                                                            fmt_num(c["promptTokens"])))
         for e in s["sessionErrors"]:
             lines.append("├── error %s: %s" % (e["errorType"], e["message"]))
+        surfaces = ["[%d] %s" % (i, r["surface"]) for i, r in enumerate(s["requests"])]
+        lines.append("├── request surfaces  %s" % ", ".join(surfaces))
         return lines
 
     def round_suffix(x):
         if x["copilotCredits"] is None:
             return ""
         u = x["usage"]
-        return "  credits=%.6f (≈%.1f) in=%s cached=%s out=%s" % (
+        return "%s  credits=%.6f (≈%.1f) in=%s cached=%s out=%s" % (
+            "  [sub-agent: %s]" % x["subAgent"]["name"] if x.get("subAgent") else "",
             x["copilotCredits"], round_credits(x["copilotCredits"]), fmt_num(u["inputTokens"]),
             fmt_num(u["cacheReadTokens"]), fmt_num(u["outputTokens"]))
 
@@ -460,11 +548,14 @@ def main(argv=None):
     ap.add_argument("--exclude-client", action="append",
                     help="Skip sessions whose client_name matches this glob (repeatable; replaces the config "
                          "list; '' = skip none). Built-in default: JetBrains*, copilot-intellij*.")
+    ap.add_argument("--vscode-user-dir", action="append",
+                    help="VS Code User dir whose globalStorage/agent-host.db marks sessions opened from VS Code "
+                         "(repeatable). Default: auto-detect Code / Code - Insiders.")
     add_common_args(ap)
     args = ap.parse_args(argv)
 
     config = load_config(args.config or DEFAULT_CONFIG_PATH, bool(args.config), BUILTIN_DEFAULTS,
-                         path_keys=("copilotHomes", "out"))
+                         path_keys=("copilotHomes", "vscodeUserDirs", "out"))
 
     def opt(cli_value, key):
         return config[key] if cli_value is None else cli_value
@@ -477,7 +568,8 @@ def main(argv=None):
         ap.error("format must be json or tree, got %r" % fmt)
     report = collect(homes, include_empty=bool(opt(args.include_empty, "includeEmpty")),
                      ticket_prefix=opt(args.ticket_prefix, "ticketPrefix"),
-                     exclude_clients=[c for c in opt(args.exclude_client, "excludeClients") if c])
+                     exclude_clients=[c for c in opt(args.exclude_client, "excludeClients") if c],
+                     vscode_dirs=args.vscode_user_dir or config["vscodeUserDirs"] or vscode_user_dirs())
     write_report(report, fmt, opt(args.out, "out"), render)
 
 

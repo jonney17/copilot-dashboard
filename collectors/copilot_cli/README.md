@@ -14,6 +14,7 @@ python3 collectors/copilot_cli/collect.py --include-empty                 # keep
 python3 collectors/copilot_cli/collect.py --ticket-prefix ABC             # tickets are ABC-123 (default LEGO)
 python3 collectors/copilot_cli/collect.py --config team.json              # other config file
 python3 collectors/copilot_cli/collect.py --exclude-client ''             # also count IDE-driven sessions
+python3 collectors/copilot_cli/collect.py --vscode-user-dir "/path/Code/User"   # VS Code whose agent host to check
 ```
 
 ### Config file
@@ -29,6 +30,7 @@ unknown keys are an error).
 | `out` | `--out FILE`, or `--out -` for stdout | `null` → stdout |
 | `includeEmpty` | `--include-empty` / `--no-include-empty` | `false` |
 | `ticketPrefix` | `--ticket-prefix KEY` | `LEGO` |
+| `vscodeUserDirs` | `--vscode-user-dir PATH` (repeatable) | `[]` → auto-detect `Code` / `Code - Insiders` |
 | `excludeClients` | `--exclude-client GLOB` (repeatable; replaces the list; `''` = none) | `["JetBrains*", "copilot-intellij*"]` |
 
 **Skipped clients.** JetBrains IDEs run Copilot on this same CLI runtime, both through
@@ -67,6 +69,36 @@ if set; this is assumed, not verified.
 
 The collector reads `events.jsonl` + `workspace.yaml`. `session-store.db` →
 `assistant_usage_events` is a second copy of the per-call usage, useful for cross-checking.
+
+### Sessions used from VS Code's agent host
+
+VS Code's agent host (Copilot agent sessions in VS Code) runs on this same CLI runtime. It can
+open an existing CLI session or create one, and every prompt it sends is appended to that
+session's `events.jsonl`. `client_name` stays whatever started the session (e.g. `github/cli`),
+so these sessions are reported here, not by the VS Code collector (they never appear in VS
+Code's `chatSessions/`).
+
+To show them as VS Code usage, the collector reads (read-only)
+`<VS Code User>/globalStorage/agent-host.db`:
+
+- `sessions_v2` rows with `provider = 'copilotcli'` and `session_uri = 'copilotcli:/<sessionId>'`
+  are the CLI sessions VS Code knows. Rows marked `sessionTombstone:<uri>` in `metadata` are
+  skipped (deleted in VS Code).
+- `payload._meta["vscode.session.initiator"].name` says who started the session;
+  `metadata["sessionStateImported:<uri>"].at` says when VS Code first imported it.
+- `chats_v2` lists the session's chats, including `ahp-chat://subagent/…` ones for sub-agent runs.
+
+Each request then gets a **`surface`**:
+
+| Session | Request surface |
+|---|---|
+| not in `agent-host.db` | `copilot-cli` |
+| started by VS Code (initiator ≠ `github/cli`) | `vscode/agent-host` |
+| started in the terminal (initiator `github/cli`), opened in VS Code later | `vscode/agent-host` if sent at or after `importedAt`, else `copilot-cli` |
+
+The last row is a best guess. The event log doesn't record which client sent each prompt (its
+`session.resume` events carry no client name), so a prompt typed in the terminal *after* VS Code
+opened the session is still labelled VS Code. Credits are unaffected; only the surface label is.
 
 ## 2. `events.jsonl`: event-log format
 
@@ -108,6 +140,8 @@ the CLI can't provide are `null`/`[]` (`promptTokenDetails`, `outputBuffer`). Ad
 report
 ├── … collector:"copilot-cli", copilotHomes[] (instead of userDirs[])
 ├── excludeClients[], excludedSessions[] {sessionId, client, excludedBy}
+├── vscodeUserDirs[]
+├── bySurface       per request: {"copilot-cli" | "vscode/agent-host": {sessions, requests, credits ×3}}
 ├── totals          + premiumRequests, backgroundCredits (NOT included in copilotCredits)
 ├── account.quota   latest quotaSnapshots across sessions:
 │                   {asOf, quotas{chat|completions|premium_interactions: {entitlementRequests, usedRequests,
@@ -121,8 +155,11 @@ report
     ├── quotaSnapshot   {asOf, snapshots}  (latest in this session)
     ├── sessionErrors[] {timestamp, errorType, message}
     ├── _source.workspace {folder(cwd), kind:"cli", gitRoot, repository, branch, client, copilotVersion}
+    ├── _source.vscodeAgentHost {sessionUri, initiator, importedAt, registrationSource, modifiedTime, title,
+    │                            chats, subAgentChats, dbFile} | null
     └── requests[]
         ├── requestId (= interactionId), timestamp, modelId (selected, e.g. "auto"), message.text
+        ├── surface            "copilot-cli" | "vscode/agent-host" (see "Sessions used from VS Code's agent host")
         ├── modeInfo {kind:"cli"}, agent {id:"copilot-cli", name, extensionVersion}
         ├── ★ copilotCredits / copilotCreditsRounded / copilotCreditsRoundedUp
         ├── ★ promptTokens       last round's inputTokens (same meaning as VS Code)

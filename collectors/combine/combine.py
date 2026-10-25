@@ -28,11 +28,11 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 COLLECTORS_DIR = os.path.dirname(HERE)
 sys.path.insert(0, COLLECTORS_DIR)
-from common import (add_to_bucket, fmt_credits, fmt_num, load_config, now_iso, render_tree,  # noqa: E402
-                    summarise, write_report)
+from common import (add_to_bucket, by_request_surface, fmt_credits, fmt_num, load_config, now_iso,  # noqa: E402
+                    render_tree, summarise, write_report)
 
 COLLECTOR = "combined"
-COLLECTOR_VERSION = "1.0.0"
+COLLECTOR_VERSION = "1.1.0"
 DEFAULT_CONFIG_PATH = os.path.join(HERE, "config.json")
 REPORTS_DIR = os.path.join(os.path.dirname(COLLECTORS_DIR), "reports")
 # collector name -> (script, default report file)
@@ -93,9 +93,16 @@ def run_collectors():
 # --------------------------------------------------------------------------- #
 
 def surface_of(collector, session):
+    """Where the session was used. Requests may carry their own `surface` (the CLI collector marks
+    requests sent from VS Code's agent host); a session whose requests differ is "mixed"."""
+    request_surfaces = {r["surface"] for r in session.get("requests") or [] if r.get("surface")}
+    if len(request_surfaces) == 1:
+        return request_surfaces.pop()
+    if len(request_surfaces) > 1:
+        return "mixed"
     if collector == "intellij":
         return "intellij/" + (session.get("integration") or "unknown")
-    return {"vscode-copilot-chat": "vscode", "copilot-cli": "copilot-cli"}.get(collector, collector)
+    return {"vscode-copilot-chat": "vscode/chat", "copilot-cli": "copilot-cli"}.get(collector, collector)
 
 
 def dedupe_key(session):
@@ -125,10 +132,11 @@ def combine(reports, load_errors):
         s["_source"] = dict(s.get("_source") or {}, collector=collector)
         kept[key] = s
     sessions = sorted(kept.values(), key=lambda s: s.get("creationDate") or 0)
-    by_source, by_surface = {}, {}
+    by_source = {}
     for s in sessions:
         add_to_bucket(by_source, s["_source"]["collector"], s)
-        add_to_bucket(by_surface, s["surface"], s)
+    # per request, so a CLI session continued in VS Code is split between the two surfaces
+    by_surface = by_request_surface(sessions, lambda s: s["surface"])
 
     combined = {
         "collector": COLLECTOR,
