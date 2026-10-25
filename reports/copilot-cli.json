@@ -1,0 +1,492 @@
+{
+  "collector": "copilot-cli",
+  "collectorVersion": "1.0.0",
+  "generatedAt": "2026-10-25T03:54:05.646885+00:00",
+  "copilotHomes": [
+    "/Users/tmnghia/.copilot"
+  ],
+  "ticketPrefix": "LEGO",
+  "totals": {
+    "requests": 1,
+    "billedRequests": 1,
+    "copilotCredits": 0.793344,
+    "copilotCreditsRounded": 0.8,
+    "copilotCreditsRoundedUp": 0.8,
+    "promptTokens": 27359,
+    "completionTokens": 1282,
+    "toolCallRounds": 4,
+    "resolvedModels": [
+      "mai-code-1.1-flash"
+    ],
+    "sessions": 1,
+    "backgroundCredits": 0,
+    "premiumRequests": 1.0
+  },
+  "byTicket": {
+    "(no ticket)": {
+      "sessions": 1,
+      "requests": 1,
+      "copilotCredits": 0.793344,
+      "copilotCreditsRounded": 0.8,
+      "copilotCreditsRoundedUp": 0.8,
+      "sessionIds": [
+        "40783e9c-b4f8-45d3-b3ea-a4793b428155"
+      ]
+    }
+  },
+  "byWorkspace": {
+    "/Volumes/Data Ext/project/dashboard": {
+      "sessions": 1,
+      "requests": 1,
+      "copilotCredits": 0.793344,
+      "copilotCreditsRounded": 0.8,
+      "copilotCreditsRoundedUp": 0.8
+    }
+  },
+  "byModel": {
+    "mai-code-1.1-flash": {
+      "requests": 1,
+      "copilotCredits": 0.793344,
+      "copilotCreditsRounded": 0.8,
+      "copilotCreditsRoundedUp": 0.8
+    }
+  },
+  "account": {
+    "quota": {
+      "asOf": 1792900118743,
+      "quotas": {
+        "chat": {
+          "isUnlimitedEntitlement": false,
+          "entitlementRequests": 200,
+          "usedRequests": 3,
+          "usageAllowedWithExhaustedQuota": false,
+          "overage": 0,
+          "overageAllowedWithExhaustedQuota": false,
+          "remainingPercentage": 98.4,
+          "resetDate": "2026-11-01T00:00:00Z",
+          "usedEstimate": 3.2
+        },
+        "completions": {
+          "isUnlimitedEntitlement": false,
+          "entitlementRequests": 2000,
+          "usedRequests": 0,
+          "usageAllowedWithExhaustedQuota": false,
+          "overage": 0,
+          "overageAllowedWithExhaustedQuota": false,
+          "remainingPercentage": 100,
+          "resetDate": "2026-11-01T00:00:00Z",
+          "usedEstimate": 0.0
+        },
+        "premium_interactions": {
+          "isUnlimitedEntitlement": false,
+          "entitlementRequests": 0,
+          "usedRequests": 0,
+          "usageAllowedWithExhaustedQuota": false,
+          "overage": 0,
+          "overageAllowedWithExhaustedQuota": false,
+          "remainingPercentage": 0,
+          "resetDate": "2026-11-01T00:00:00Z",
+          "usedEstimate": null
+        }
+      }
+    }
+  },
+  "sessions": [
+    {
+      "sessionId": "40783e9c-b4f8-45d3-b3ea-a4793b428155",
+      "ticketKey": null,
+      "creationDate": 1792900065603,
+      "customTitle": "Project Overview Session",
+      "responderUsername": "GitHub Copilot CLI",
+      "inputState": {
+        "selectedModel": {
+          "identifier": "auto",
+          "metadata": {},
+          "modelConfiguration": {
+            "reasoningEffort": null,
+            "contextTier": null,
+            "source": "automatic"
+          }
+        }
+      },
+      "requests": [
+        {
+          "requestId": "4870498a-82c0-4448-a229-45f4ef37f435",
+          "timestamp": 1792900118058,
+          "modelId": "auto",
+          "modeInfo": {
+            "kind": "cli"
+          },
+          "agent": {
+            "id": "copilot-cli",
+            "name": "GitHub Copilot CLI",
+            "extensionVersion": "1.0.103"
+          },
+          "message": {
+            "text": "Give me an overview of this project."
+          },
+          "promptTokenDetails": [],
+          "outputBuffer": null,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792900136951
+          },
+          "response": [
+            {
+              "kind": "autoModeResolution",
+              "resolved": {
+                "id": "mai-code-1.1-flash"
+              }
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_5eR04zRvLoo6t4VID6ZUzp6R",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_6fTqNLT0UWoDkQn34BH6kYkX",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": false
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_EDPy1DI4lm8RRsJqPD8l2hyi",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": false
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "glob",
+              "toolCallId": "call_j58HtzKPu7ZhUJKhaWUtK4WZ",
+              "message": "Finding files",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_JW8r1wV4Sz590KOcRATYaLxr",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_Q7Amd542Mbna89WJ1siu9U59",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_B1pZwfYexDxEcKHROPav3Z7v",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_qwhdtQpy1FoSr45fV0wFqWeR",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_CbPcEowvWo1oMYeskCo7Lfp9",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "view",
+              "toolCallId": "call_4dg8Za4WCUoTioJ79nSgWomU",
+              "message": "Viewing file",
+              "isComplete": true,
+              "success": true
+            },
+            {
+              "kind": "markdown",
+              "text": "This project is a lightweight usage-analytics repo for GitHub Copilot Chat inside VS Code.\n\n- Core purpose: collect, normalize, and summarize Copilot usage from local VS Code data, then group it by workspace, model, and Jira-like ticket key.\n- Main implementation: `collectors/vscode/collect.py` reads VS Code’s local chat/session files (JSONL + SQLite), replays the mutation log to reconstruct each chat session, and computes usage totals like credits, tokens, and tool-call rounds.\n- Output: `reports/vscode-copilot.json` is a sample generated report showing totals, per-ticket usage, per-workspace usage, per-model usage, and per-session request details.\n- Structure:\n  - `collectors/vscode/README.md` documents the data model and how the collector works.\n  - `collectors/vscode/config.json` defines defaults for user directories, output format, and ticket prefix.\n  - `reports/` stores generated reports.\n- Important detail: it is a local reporting pipeline, not a web app or package project. It intentionally reads VS Code data on disk and avoids network calls.\n\nSo in short: this repo turns local Copilot Chat activity into a dashboard-style report for tracking usage and cost."
+            }
+          ],
+          "copilotCredits": 0.793344,
+          "copilotCreditsRounded": 0.8,
+          "copilotCreditsRoundedUp": 0.8,
+          "promptTokens": 27359,
+          "completionTokens": 1282,
+          "usage": {
+            "inputTokens": 86004,
+            "cacheReadTokens": 60032,
+            "cacheWriteTokens": 0,
+            "outputTokens": 1282,
+            "reasoningTokens": 512
+          },
+          "premiumRequestCost": 1.0,
+          "elapsedMs": 18893,
+          "result": {
+            "timings": {
+              "totalElapsed": 18893
+            },
+            "details": "MAI-Code-1.1-Flash • 0.8 credits",
+            "metadata": {
+              "resolvedModel": "mai-code-1.1-flash",
+              "promptTokens": 27359,
+              "outputTokens": 1282,
+              "toolCallRounds": [
+                {
+                  "turnId": "0",
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [
+                    {
+                      "id": "call_5eR04zRvLoo6t4VID6ZUzp6R",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_6fTqNLT0UWoDkQn34BH6kYkX",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_EDPy1DI4lm8RRsJqPD8l2hyi",
+                      "name": "view"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 64
+                  },
+                  "timestamp": 1792900118066,
+                  "endedAt": 1792900122506,
+                  "usage": {
+                    "inputTokens": 19291,
+                    "cacheReadTokens": 1280,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 215,
+                    "reasoningTokens": 64
+                  },
+                  "nanoAiu": 388580000,
+                  "copilotCredits": 0.38858,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "user",
+                  "finishReason": "tool_calls",
+                  "durationMs": 3347,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "1",
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [
+                    {
+                      "id": "call_j58HtzKPu7ZhUJKhaWUtK4WZ",
+                      "name": "glob"
+                    },
+                    {
+                      "id": "call_JW8r1wV4Sz590KOcRATYaLxr",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_Q7Amd542Mbna89WJ1siu9U59",
+                      "name": "view"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 0
+                  },
+                  "timestamp": 1792900122507,
+                  "endedAt": 1792900125397,
+                  "usage": {
+                    "inputTokens": 19563,
+                    "cacheReadTokens": 19328,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 150,
+                    "reasoningTokens": 0
+                  },
+                  "nanoAiu": 61356000,
+                  "copilotCredits": 0.061356,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 2681,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "2",
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [
+                    {
+                      "id": "call_B1pZwfYexDxEcKHROPav3Z7v",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_qwhdtQpy1FoSr45fV0wFqWeR",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_CbPcEowvWo1oMYeskCo7Lfp9",
+                      "name": "view"
+                    },
+                    {
+                      "id": "call_4dg8Za4WCUoTioJ79nSgWomU",
+                      "name": "view"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 0
+                  },
+                  "timestamp": 1792900125398,
+                  "endedAt": 1792900127959,
+                  "usage": {
+                    "inputTokens": 19791,
+                    "cacheReadTokens": 19584,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 207,
+                    "reasoningTokens": 0
+                  },
+                  "nanoAiu": 68148000,
+                  "copilotCredits": 0.068148,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "tool_calls",
+                  "durationMs": 2510,
+                  "aiCreditsStatus": "complete"
+                },
+                {
+                  "turnId": "3",
+                  "modelId": "mai-code-1.1-flash",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 448
+                  },
+                  "timestamp": 1792900127960,
+                  "endedAt": 1792900136951,
+                  "usage": {
+                    "inputTokens": 27359,
+                    "cacheReadTokens": 19840,
+                    "cacheWriteTokens": 0,
+                    "outputTokens": 710,
+                    "reasoningTokens": 448
+                  },
+                  "nanoAiu": 275260000,
+                  "copilotCredits": 0.27526,
+                  "premiumRequestCost": 1.0,
+                  "initiator": "agent",
+                  "finishReason": "stop",
+                  "durationMs": 8965,
+                  "aiCreditsStatus": "complete"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "sessionUsage": {
+        "totalNanoAiu": 793344000,
+        "copilotCredits": 0.793344,
+        "totalPremiumRequests": 1,
+        "totalUserRequests": 1,
+        "aiCreditsStatus": "complete",
+        "codeChanges": {
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "filesModifiedCount": 0,
+          "filesModified": []
+        },
+        "matchesRequests": true
+      },
+      "backgroundCalls": [
+        {
+          "model": "gpt-4o-mini",
+          "modelDisplayName": "GPT-4o mini",
+          "initiator": "agent",
+          "timestamp": 1792900118743,
+          "promptTokens": 202,
+          "completionTokens": 11,
+          "nanoAiu": 0,
+          "copilotCredits": 0.0
+        }
+      ],
+      "quotaSnapshot": {
+        "asOf": 1792900118743,
+        "snapshots": {
+          "chat": {
+            "isUnlimitedEntitlement": false,
+            "entitlementRequests": 200,
+            "usedRequests": 3,
+            "usageAllowedWithExhaustedQuota": false,
+            "overage": 0,
+            "overageAllowedWithExhaustedQuota": false,
+            "remainingPercentage": 98.4,
+            "resetDate": "2026-11-01T00:00:00Z"
+          },
+          "completions": {
+            "isUnlimitedEntitlement": false,
+            "entitlementRequests": 2000,
+            "usedRequests": 0,
+            "usageAllowedWithExhaustedQuota": false,
+            "overage": 0,
+            "overageAllowedWithExhaustedQuota": false,
+            "remainingPercentage": 100,
+            "resetDate": "2026-11-01T00:00:00Z"
+          },
+          "premium_interactions": {
+            "isUnlimitedEntitlement": false,
+            "entitlementRequests": 0,
+            "usedRequests": 0,
+            "usageAllowedWithExhaustedQuota": false,
+            "overage": 0,
+            "overageAllowedWithExhaustedQuota": false,
+            "remainingPercentage": 0,
+            "resetDate": "2026-11-01T00:00:00Z"
+          }
+        }
+      },
+      "sessionErrors": [
+        {
+          "timestamp": 1792900081625,
+          "errorType": "authentication",
+          "message": "You must be logged in to send messages. Please run /login"
+        }
+      ],
+      "_source": {
+        "file": "/Users/tmnghia/.copilot/session-state/40783e9c-b4f8-45d3-b3ea-a4793b428155/events.jsonl",
+        "workspace": {
+          "id": null,
+          "folder": "/Volumes/Data Ext/project/dashboard",
+          "kind": "cli",
+          "gitRoot": "/Volumes/Data Ext/project/dashboard",
+          "repository": "jonney17/copilot-dashboard",
+          "branch": "main",
+          "client": "github/cli",
+          "copilotVersion": "1.0.103"
+        },
+        "ticket": null
+      },
+      "_totals": {
+        "requests": 1,
+        "billedRequests": 1,
+        "copilotCredits": 0.793344,
+        "copilotCreditsRounded": 0.8,
+        "copilotCreditsRoundedUp": 0.8,
+        "promptTokens": 27359,
+        "completionTokens": 1282,
+        "toolCallRounds": 4,
+        "resolvedModels": [
+          "mai-code-1.1-flash"
+        ]
+      }
+    }
+  ],
+  "errors": []
+}
