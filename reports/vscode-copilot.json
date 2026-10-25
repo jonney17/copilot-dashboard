@@ -1,0 +1,865 @@
+{
+  "collector": "vscode-copilot-chat",
+  "collectorVersion": "1.2.0",
+  "generatedAt": "2026-10-25T03:33:22.316246+00:00",
+  "userDirs": [
+    "/Users/tmnghia/Library/Application Support/Code/User"
+  ],
+  "ticketPrefix": "LEGO",
+  "totals": {
+    "requests": 6,
+    "billedRequests": 5,
+    "copilotCredits": 2.663242,
+    "copilotCreditsRounded": 2.6,
+    "copilotCreditsRoundedUp": 3.0,
+    "promptTokens": 358831,
+    "completionTokens": 4439,
+    "toolCallRounds": 11,
+    "resolvedModels": [
+      "gpt-6-luna"
+    ],
+    "sessions": 2
+  },
+  "byTicket": {
+    "(no ticket)": {
+      "sessions": 2,
+      "requests": 6,
+      "copilotCredits": 2.663242,
+      "copilotCreditsRounded": 2.6,
+      "copilotCreditsRoundedUp": 3.0,
+      "sessionIds": [
+        "91188c4b-71df-4f75-b30e-89f304cbc88f",
+        "a3720e2e-fa40-49ae-87fc-0edb94c19e1d"
+      ]
+    }
+  },
+  "byWorkspace": {
+    "/Volumes/Data Ext/project/AI4Kids": {
+      "sessions": 1,
+      "requests": 1,
+      "copilotCredits": 0.0,
+      "copilotCreditsRounded": 0.0,
+      "copilotCreditsRoundedUp": 0.0
+    },
+    "/Volumes/Data Ext/project/fullstack": {
+      "sessions": 1,
+      "requests": 5,
+      "copilotCredits": 2.663242,
+      "copilotCreditsRounded": 2.6,
+      "copilotCreditsRoundedUp": 3.0
+    }
+  },
+  "byModel": {
+    "(unknown)": {
+      "requests": 1,
+      "copilotCredits": 0.0,
+      "copilotCreditsRounded": 0.0,
+      "copilotCreditsRoundedUp": 0.0
+    },
+    "gpt-6-luna": {
+      "requests": 5,
+      "copilotCredits": 2.663242,
+      "copilotCreditsRounded": 2.6,
+      "copilotCreditsRoundedUp": 3.0
+    }
+  },
+  "sessions": [
+    {
+      "sessionId": "91188c4b-71df-4f75-b30e-89f304cbc88f",
+      "ticketKey": null,
+      "creationDate": 1792801703053,
+      "customTitle": null,
+      "responderUsername": "",
+      "inputState": {
+        "selectedModel": null
+      },
+      "requests": [
+        {
+          "requestId": "request_38208f80-17aa-4944-b7ac-ebc5cd6089e0",
+          "timestamp": 1792801892325,
+          "modelId": null,
+          "modeInfo": {
+            "kind": "agent",
+            "isBuiltin": true,
+            "permissionLevel": "default"
+          },
+          "agent": {
+            "id": "setup.agent",
+            "name": "GitHub Copilot",
+            "extensionVersion": null
+          },
+          "message": {
+            "text": "build an agent team for full stack development including QE process, the idea is starting from plan (explore, and understand the requirement from jira ticket), to development (dev) / define test cases (QE), and review, and then adapt (critic the session to update skill/agent if required) "
+          },
+          "copilotCredits": null,
+          "copilotCreditsRounded": null,
+          "copilotCreditsRoundedUp": null,
+          "promptTokens": null,
+          "completionTokens": null,
+          "promptTokenDetails": [],
+          "outputBuffer": null,
+          "elapsedMs": 21066,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792801913391
+          },
+          "response": [
+            {
+              "kind": "mcpServersStarting"
+            },
+            {
+              "kind": "markdown",
+              "text": "You need to set up GitHub Copilot and be signed in to use Chat."
+            }
+          ],
+          "result": {
+            "timings": null,
+            "details": null,
+            "metadata": {
+              "resolvedModel": null,
+              "promptTokens": null,
+              "outputTokens": null,
+              "toolCallRounds": []
+            }
+          }
+        }
+      ],
+      "_source": {
+        "file": "/Users/tmnghia/Library/Application Support/Code/User/workspaceStorage/d359c168593ac6b42d224186e189d649/chatSessions/91188c4b-71df-4f75-b30e-89f304cbc88f.jsonl",
+        "workspace": {
+          "id": "d359c168593ac6b42d224186e189d649",
+          "folder": "/Volumes/Data Ext/project/AI4Kids",
+          "kind": "folder"
+        },
+        "ticket": null
+      },
+      "_totals": {
+        "requests": 1,
+        "billedRequests": 0,
+        "copilotCredits": 0,
+        "copilotCreditsRounded": 0,
+        "copilotCreditsRoundedUp": 0,
+        "promptTokens": 0,
+        "completionTokens": 0,
+        "toolCallRounds": 0,
+        "resolvedModels": []
+      }
+    },
+    {
+      "sessionId": "a3720e2e-fa40-49ae-87fc-0edb94c19e1d",
+      "ticketKey": null,
+      "creationDate": 1792887495357,
+      "customTitle": "Credit usage location",
+      "responderUsername": "GitHub Copilot",
+      "inputState": {
+        "selectedModel": {
+          "identifier": "copilot/auto",
+          "metadata": {
+            "id": "auto",
+            "vendor": "copilot",
+            "name": "Auto",
+            "family": "claude-fable-5.1",
+            "version": "claude-fable-5.1",
+            "maxInputTokens": 935793,
+            "maxOutputTokens": 64000,
+            "isBYOK": false
+          },
+          "modelConfiguration": {
+            "tier": "balance",
+            "tierSource": "default"
+          }
+        }
+      },
+      "requests": [
+        {
+          "requestId": "request_8eb1ca81-a6a1-47dc-9cac-dd29c4b85580",
+          "timestamp": 1792887634370,
+          "modelId": null,
+          "modeInfo": {
+            "kind": "agent",
+            "isBuiltin": true,
+            "permissionLevel": "default"
+          },
+          "agent": {
+            "id": "github.copilot.editsAgent",
+            "name": "agent",
+            "extensionVersion": "0.71.0"
+          },
+          "message": {
+            "text": "where I can find credit usage for this session?"
+          },
+          "copilotCredits": 0.286405,
+          "copilotCreditsRounded": 0.3,
+          "copilotCreditsRoundedUp": 0.3,
+          "promptTokens": 21317,
+          "completionTokens": 399,
+          "promptTokenDetails": [
+            {
+              "category": "System",
+              "label": "System Instructions",
+              "percentageOfPrompt": 35
+            },
+            {
+              "category": "System",
+              "label": "Tool Definitions",
+              "percentageOfPrompt": 61
+            },
+            {
+              "category": "User Context",
+              "label": "Messages",
+              "percentageOfPrompt": 4
+            }
+          ],
+          "outputBuffer": 128000,
+          "elapsedMs": 8366,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792887642736
+          },
+          "response": [
+            {
+              "kind": "mcpServersStarting"
+            },
+            {
+              "kind": "autoModeResolution",
+              "resolved": {
+                "id": "gpt-6-luna",
+                "name": "GPT-6 Luna"
+              }
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "VS Code Copilot Chat doesn’t show credit usage for an individual chat session. For Copilot premium-request usage, check **GitHub → Settings → Billing and licensing → Usage**; it’s reported at the account level, not per session. If you’re using your own API key, check that provider’s usage dashboard."
+            }
+          ],
+          "result": {
+            "timings": {
+              "firstProgress": 6119,
+              "totalElapsed": 6695
+            },
+            "details": "GPT-6 Luna • 0.3 credits",
+            "metadata": {
+              "resolvedModel": "gpt-6-luna",
+              "promptTokens": 21317,
+              "outputTokens": 399,
+              "toolCallRounds": [
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 328
+                  },
+                  "timestamp": 1792887642726
+                }
+              ]
+            }
+          }
+        },
+        {
+          "requestId": "request_bef45bbc-4a2d-45d5-b73e-618aaf0653f5",
+          "timestamp": 1792887725958,
+          "modelId": "copilot/auto",
+          "modeInfo": {
+            "kind": "agent",
+            "isBuiltin": true,
+            "permissionLevel": "default"
+          },
+          "agent": {
+            "id": "github.copilot.editsAgent",
+            "name": "agent",
+            "extensionVersion": "0.71.0"
+          },
+          "message": {
+            "text": "in the windows I can find it under the appdata code sessions infiormation, how about this mac?"
+          },
+          "copilotCredits": 0.106844,
+          "copilotCreditsRounded": 0.1,
+          "copilotCreditsRoundedUp": 0.2,
+          "promptTokens": 26069,
+          "completionTokens": 522,
+          "promptTokenDetails": [
+            {
+              "category": "System",
+              "label": "System Instructions",
+              "percentageOfPrompt": 32
+            },
+            {
+              "category": "System",
+              "label": "Tool Definitions",
+              "percentageOfPrompt": 54
+            },
+            {
+              "category": "User Context",
+              "label": "Messages",
+              "percentageOfPrompt": 14
+            }
+          ],
+          "outputBuffer": 128000,
+          "elapsedMs": 7371,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792887733329
+          },
+          "response": [
+            {
+              "kind": "mcpServersStarting"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "On macOS, the equivalent of `%APPDATA%\\Code` is:\n\n`~/Library/Application Support/Code`\n\nFor this current session, the Copilot Chat debug log is under:\n\n`~/Library/Application Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874/GitHub.copilot-chat/debug-logs/`\n\nThe session log is `a3720e2e-fa40-49ae-87fc-0edb94c19e1d`. You can open the folder in Finder with **Go → Go to Folder…**. This is session debug information; it may not include a credit-usage total."
+            }
+          ],
+          "result": {
+            "timings": {
+              "firstProgress": 6203,
+              "totalElapsed": 7297
+            },
+            "details": "GPT-6 Luna • 0.1 credits",
+            "metadata": {
+              "resolvedModel": "gpt-6-luna",
+              "promptTokens": 26069,
+              "outputTokens": 522,
+              "toolCallRounds": [
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 374
+                  },
+                  "timestamp": 1792887733319
+                }
+              ]
+            }
+          }
+        },
+        {
+          "requestId": "request_a8f6dbb3-7ca9-403e-93ed-2b69638c4cbd",
+          "timestamp": 1792887888477,
+          "modelId": "copilot/auto",
+          "modeInfo": {
+            "kind": "agent",
+            "isBuiltin": false,
+            "permissionLevel": "default"
+          },
+          "agent": {
+            "id": "github.copilot.editsAgent",
+            "name": "agent",
+            "extensionVersion": "0.71.0"
+          },
+          "message": {
+            "text": "explore the `~/Library/Application Support/Code` to see if we can get the credit usage there"
+          },
+          "copilotCredits": 0.7192909999999999,
+          "copilotCreditsRounded": 0.7,
+          "copilotCreditsRoundedUp": 0.8,
+          "promptTokens": 34591,
+          "completionTokens": 2432,
+          "promptTokenDetails": [
+            {
+              "category": "System",
+              "label": "System Instructions",
+              "percentageOfPrompt": 37
+            },
+            {
+              "category": "System",
+              "label": "Tool Definitions",
+              "percentageOfPrompt": 13
+            },
+            {
+              "category": "User Context",
+              "label": "Messages",
+              "percentageOfPrompt": 29
+            },
+            {
+              "category": "User Context",
+              "label": "Tool Results",
+              "percentageOfPrompt": 20
+            }
+          ],
+          "outputBuffer": 128000,
+          "elapsedMs": 38177,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792887935924
+          },
+          "response": [
+            {
+              "kind": "mcpServersStarting"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "I’ll inspect VS Code’s macOS user-data folders, especially Copilot Chat storage and the current session’s debug log, to see whether they contain an actual usage or credit count."
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_TwzPKWeVk83ZR1RDRiJ00fW9",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code)",
+              "isComplete": true
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_iVtR56Y1ll81rQ3QM99WFR3r",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User)",
+              "isComplete": true
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "The top-level `Code` folder has the expected `User/globalStorage` and `User/workspaceStorage` locations. I’m checking both now; session logs can live in workspace storage, while extension-wide metadata is more likely in global storage."
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_ELYXgPATsFZ0Tt9CiRiZYRM9",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User/globalStorage)",
+              "isComplete": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_uuOjp1vZvjUZNaVc081dsqDV",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874)",
+              "isComplete": true
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_IoiU1vvsIvvVceZ8eCrEuDLy",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User/globalStorage/github.copilot-chat)",
+              "isComplete": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_zZIWiOCe6TjWI7xoI1ujfcLb",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874/GitHub.copilot-chat)",
+              "isComplete": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_LznhHeDY4QKYJfvzNXSU4ywP",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874/chatSessions)",
+              "isComplete": true
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "I found the current session’s JSONL transcript and a Copilot Chat `session-store.db`, so there is concrete local session data to inspect. Next I’ll check whether these records contain token/credit usage fields; they may track conversation details without exposing billing credits."
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "tool_search",
+              "toolCallId": "call_zo6ie4I5XHXZk83oihkKvnrf",
+              "message": "",
+              "isComplete": true
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_listDirectory",
+              "toolCallId": "call_MTtaIqQGiyL1BFe4XiO7u8nc",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874/GitHub.copilot-chat/debug-logs)",
+              "isComplete": true
+            },
+            {
+              "kind": "toolInvocation",
+              "toolId": "copilot_readFile",
+              "toolCallId": "call_vhq9Ql23JEHpLWnTFhYSMhsP",
+              "message": "Read [](file:///Users/tmnghia/Library/Application%20Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874/chatSessions/a3720e2e-fa40-49ae-87fc-0edb94c19e1d.jsonl)",
+              "isComplete": true
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "Yes. I found the usage in this session’s transcript, so my earlier answer was too broad. Open this file via Finder’s **Go → Go to Folder…**:\n\n`~/Library/Application Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874/chatSessions/a3720e2e-fa40-49ae-87fc-0edb94c19e1d.jsonl`\n\nEach completed request can include `copilotCredits`, along with `promptTokens` and `completionTokens`. I found credit entries of `0.286405`, `0.106844`, and `0.456724` in the saved transcript, totaling about **0.85 credits** so far. That’s session-level data, not your account’s overall usage."
+            }
+          ],
+          "result": {
+            "timings": {
+              "firstProgress": 4168,
+              "totalElapsed": 47387
+            },
+            "details": "GPT-6 Luna • 0.7 credits",
+            "metadata": {
+              "resolvedModel": "gpt-6-luna",
+              "promptTokens": 34591,
+              "outputTokens": 1471,
+              "toolCallRounds": [
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_TwzPKWeVk83ZR1RDRiJ00fW9__vscode-1792887633184",
+                      "name": "list_dir"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 90
+                  },
+                  "timestamp": 1792887893308
+                },
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_iVtR56Y1ll81rQ3QM99WFR3r__vscode-1792887633185",
+                      "name": "list_dir"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 21
+                  },
+                  "timestamp": 1792887898682
+                },
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_ELYXgPATsFZ0Tt9CiRiZYRM9__vscode-1792887633186",
+                      "name": "list_dir"
+                    },
+                    {
+                      "id": "call_uuOjp1vZvjUZNaVc081dsqDV__vscode-1792887633187",
+                      "name": "list_dir"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 44
+                  },
+                  "timestamp": 1792887903711
+                },
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_IoiU1vvsIvvVceZ8eCrEuDLy__vscode-1792887633188",
+                      "name": "list_dir"
+                    },
+                    {
+                      "id": "call_zZIWiOCe6TjWI7xoI1ujfcLb__vscode-1792887633189",
+                      "name": "list_dir"
+                    },
+                    {
+                      "id": "call_LznhHeDY4QKYJfvzNXSU4ywP__vscode-1792887633190",
+                      "name": "list_dir"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 20
+                  },
+                  "timestamp": 1792887912385
+                },
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_zo6ie4I5XHXZk83oihkKvnrf__vscode-1792887633191",
+                      "name": "tool_search"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 35
+                  },
+                  "timestamp": 1792887915210
+                },
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [
+                    {
+                      "id": "call_vhq9Ql23JEHpLWnTFhYSMhsP__vscode-1792887633192",
+                      "name": "read_file"
+                    },
+                    {
+                      "id": "call_MTtaIqQGiyL1BFe4XiO7u8nc__vscode-1792887633193",
+                      "name": "list_dir"
+                    }
+                  ],
+                  "thinking": {
+                    "tokens": 52
+                  },
+                  "timestamp": 1792887920475
+                },
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 1297
+                  },
+                  "timestamp": 1792887935790
+                }
+              ]
+            }
+          }
+        },
+        {
+          "requestId": "request_1cdcd890-ea6d-4f5a-9b5d-62c8833bd85f",
+          "timestamp": 1792888216810,
+          "modelId": "copilot/auto",
+          "modeInfo": {
+            "kind": "agent",
+            "isBuiltin": false,
+            "permissionLevel": "autoApprove"
+          },
+          "agent": {
+            "id": "github.copilot.editsAgent",
+            "name": "agent",
+            "extensionVersion": "0.71.0"
+          },
+          "message": {
+            "text": "what is structure of that jsonl file?"
+          },
+          "copilotCredits": 1.3344805,
+          "copilotCreditsRounded": 1.3,
+          "copilotCreditsRoundedUp": 1.4,
+          "promptTokens": 136220,
+          "completionTokens": 590,
+          "promptTokenDetails": [
+            {
+              "category": "System",
+              "label": "System Instructions",
+              "percentageOfPrompt": 11
+            },
+            {
+              "category": "System",
+              "label": "Tool Definitions",
+              "percentageOfPrompt": 3
+            },
+            {
+              "category": "User Context",
+              "label": "Messages",
+              "percentageOfPrompt": 79
+            },
+            {
+              "category": "User Context",
+              "label": "Files",
+              "percentageOfPrompt": 2
+            },
+            {
+              "category": "User Context",
+              "label": "Tool Results",
+              "percentageOfPrompt": 5
+            }
+          ],
+          "outputBuffer": 128000,
+          "elapsedMs": 10869,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792888227680
+          },
+          "response": [
+            {
+              "kind": "mcpServersStarting"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "It’s **JSON Lines**: each physical line is a separate JSON record. Read together in order, the records reconstruct the chat session; it isn’t one complete JSON object.\n\nThe file uses compact change records:\n\n- `{\"kind\":0,\"v\":{...}}` starts with session metadata, including the session ID and version.\n- `{\"kind\":1,\"k\":[...],\"v\":...}` records a value at a key path. For example, `k:[\"requests\",0,\"copilotCredits\"]` sets the credit usage for request 0.\n- `{\"kind\":2,\"k\":[...],\"v\":[...],\"i\":...}` records a request-list update; the request object contains the prompt, response, model, timestamps, and other details.\n\nFor usage, search for `copilotCredits`. Each value is for an individual request; add the values to estimate the session total. The transcript can also contain your prompts, responses, and context, so take care before sharing it."
+            }
+          ],
+          "result": {
+            "timings": {
+              "firstProgress": 8732,
+              "totalElapsed": 10775
+            },
+            "details": "GPT-6 Luna • 1.3 credits",
+            "metadata": {
+              "resolvedModel": "gpt-6-luna",
+              "promptTokens": 136220,
+              "outputTokens": 590,
+              "toolCallRounds": [
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 380
+                  },
+                  "timestamp": 1792888227668
+                }
+              ]
+            }
+          }
+        },
+        {
+          "requestId": "request_af4d91c9-1386-4dc0-9ae9-2ec223b5d8dd",
+          "timestamp": 1792888780219,
+          "modelId": "copilot/auto",
+          "modeInfo": {
+            "kind": "agent",
+            "isBuiltin": false,
+            "permissionLevel": "autoApprove"
+          },
+          "agent": {
+            "id": "github.copilot.editsAgent",
+            "name": "agent",
+            "extensionVersion": "0.71.0"
+          },
+          "message": {
+            "text": "so we will have informaiton related to each session -> each request, and response for a specific request, lets summary it in a tree format"
+          },
+          "copilotCredits": 0.216222,
+          "copilotCreditsRounded": 0.2,
+          "copilotCreditsRoundedUp": 0.3,
+          "promptTokens": 140634,
+          "completionTokens": 496,
+          "promptTokenDetails": [
+            {
+              "category": "System",
+              "label": "System Instructions",
+              "percentageOfPrompt": 10
+            },
+            {
+              "category": "System",
+              "label": "Tool Definitions",
+              "percentageOfPrompt": 3
+            },
+            {
+              "category": "User Context",
+              "label": "Messages",
+              "percentageOfPrompt": 79
+            },
+            {
+              "category": "User Context",
+              "label": "Files",
+              "percentageOfPrompt": 2
+            },
+            {
+              "category": "User Context",
+              "label": "Tool Results",
+              "percentageOfPrompt": 5
+            }
+          ],
+          "outputBuffer": 128000,
+          "elapsedMs": 10024,
+          "modelState": {
+            "value": 1,
+            "completedAt": 1792888790243
+          },
+          "response": [
+            {
+              "kind": "mcpServersStarting"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "thinking"
+            },
+            {
+              "kind": "markdown",
+              "text": "```text\nSession (.jsonl)\n├── Session metadata\n│   ├── sessionId\n│   ├── version\n│   └── creationDate\n└── Requests[]\n    ├── Request 0\n    │   ├── Request metadata\n    │   │   ├── requestId, timestamp\n    │   │   ├── agent / mode / model\n    │   │   └── user message and context\n    │   ├── Response\n    │   └── Usage\n    │       ├── promptTokens\n    │       ├── completionTokens\n    │       └── copilotCredits\n    ├── Request 1\n    │   └── ...\n    └── Request N\n        └── ...\n```\n\nThat’s the **logical tree** after replaying the JSONL records in order. In the file itself, a request’s fields may be spread across multiple records: `kind` identifies the record type, `k` gives the field path, and `v` contains its value. For example, `k: [\"requests\", 0, \"copilotCredits\"]` stores the credit usage for request 0."
+            }
+          ],
+          "result": {
+            "timings": {
+              "firstProgress": 7896,
+              "totalElapsed": 9914
+            },
+            "details": "GPT-6 Luna • 0.2 credits",
+            "metadata": {
+              "resolvedModel": "gpt-6-luna",
+              "promptTokens": 140634,
+              "outputTokens": 496,
+              "toolCallRounds": [
+                {
+                  "modelId": "gpt-6-luna",
+                  "toolCalls": [],
+                  "thinking": {
+                    "tokens": 235
+                  },
+                  "timestamp": 1792888790234
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "_source": {
+        "file": "/Users/tmnghia/Library/Application Support/Code/User/workspaceStorage/f621df1d17e7a73f950c34cbec13e874/chatSessions/a3720e2e-fa40-49ae-87fc-0edb94c19e1d.jsonl",
+        "workspace": {
+          "id": "f621df1d17e7a73f950c34cbec13e874",
+          "folder": "/Volumes/Data Ext/project/fullstack",
+          "kind": "folder"
+        },
+        "ticket": null
+      },
+      "_totals": {
+        "requests": 5,
+        "billedRequests": 5,
+        "copilotCredits": 2.663242,
+        "copilotCreditsRounded": 2.6,
+        "copilotCreditsRoundedUp": 3.0,
+        "promptTokens": 358831,
+        "completionTokens": 4439,
+        "toolCallRounds": 11,
+        "resolvedModels": [
+          "gpt-6-luna"
+        ]
+      }
+    }
+  ],
+  "errors": []
+}

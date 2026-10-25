@@ -1,0 +1,8 @@
+{
+  "_comment": "Defaults for collect.py. Command-line options override these. Relative paths are relative to this file; ~ and $VARS are expanded. userDirs [] = auto-detect VS Code. out null = stdout; e.g. \"../../reports/vscode-copilot.json\". Note: a file path here also receives --format tree output unless you pass --out -.",
+  "userDirs": [],
+  "format": "json",
+  "out": null,
+  "includeEmpty": false,
+  "ticketPrefix": "LEGO"
+}
