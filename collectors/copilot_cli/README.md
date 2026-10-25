@@ -13,6 +13,7 @@ python3 collectors/copilot_cli/collect.py --copilot-home /path/.copilot   # othe
 python3 collectors/copilot_cli/collect.py --include-empty                 # keep 0-request sessions
 python3 collectors/copilot_cli/collect.py --ticket-prefix ABC             # tickets are ABC-123 (default LEGO)
 python3 collectors/copilot_cli/collect.py --config team.json              # other config file
+python3 collectors/copilot_cli/collect.py --exclude-client ''             # also count IDE-driven sessions
 ```
 
 ### Config file
@@ -28,6 +29,14 @@ unknown keys are an error).
 | `out` | `--out FILE`, or `--out -` for stdout | `null` → stdout |
 | `includeEmpty` | `--include-empty` / `--no-include-empty` | `false` |
 | `ticketPrefix` | `--ticket-prefix KEY` | `LEGO` |
+| `excludeClients` | `--exclude-client GLOB` (repeatable; replaces the list; `''` = none) | `["JetBrains*", "copilot-intellij*"]` |
+
+**Skipped clients.** JetBrains IDEs run Copilot on this same CLI runtime, both through
+AI Assistant over ACP (`client_name: JetBrains.IntelliJ IDEA`) and through the GitHub
+Copilot plugin (`client_name: copilot-intellij`). Their sessions land in `session-state/`
+too. They are reported by the [IntelliJ collector](../intellij/README.md) with IDE context,
+so this collector skips them by default to avoid double counting. Skipped sessions are listed in
+`report.excludedSessions`, so nothing disappears silently.
 
 Verified against Copilot CLI 1.0.103 (macOS). The on-disk format is internal to the CLI
 and can change between releases.
@@ -75,6 +84,7 @@ Unlike VS Code's mutation log, each line is a self-contained event:
 | `assistant.message` | response text, tool requests | `model, content, toolRequests[{toolCallId,name}], phase` |
 | `tool.execution_start` / `complete` | tool invocations | `toolName, toolCallId, toolTitle, success` |
 | `model.model_call_success` | auxiliary calls (e.g. naming the session) + ★ **account quota** | `modelCall, copilotUsage, responseUsage, quotaSnapshots{chat, completions, premium_interactions}` |
+| `subagent.started` / `completed` | a sub-agent run (e.g. "Search Subagent") | `toolCallId, agentName, agentDisplayName, agentType, model` |
 | `session.usage_checkpoint` | ★ CLI's own running session total | `totalNanoAiu, totalPremiumRequests, accountingSnapshot{…}` |
 | `session.error`, `session.info` | errors (e.g. not logged in), MCP / auth info | `errorType, message` |
 
@@ -85,6 +95,7 @@ How the collector maps events to the shared schema:
 | session | `session-state/<id>/` |
 | request | one `user.message` / `interactionId` (follow-up messages sent mid-run are merged in) |
 | toolCallRound | one `assistant.turn_start … turn_end` with its `session.usage_record` |
+| sub-agent | events with a top-level `agentId` (= the parent's tool-call id): their `user.message` is the sub-agent's task prompt (stored on a `subAgent` response part, **not** a new request); their turns are extra rounds of the parent request, marked `subAgent{id,name}`; usage records have `initiator: "sub-agent"` |
 | `customTitle` | `workspace.yaml` → `name` |
 | workspace | `cwd` (plus repository, branch) |
 
@@ -96,6 +107,7 @@ the CLI can't provide are `null`/`[]` (`promptTokenDetails`, `outputBuffer`). Ad
 ```
 report
 ├── … collector:"copilot-cli", copilotHomes[] (instead of userDirs[])
+├── excludeClients[], excludedSessions[] {sessionId, client, excludedBy}
 ├── totals          + premiumRequests, backgroundCredits (NOT included in copilotCredits)
 ├── account.quota   latest quotaSnapshots across sessions:
 │                   {asOf, quotas{chat|completions|premium_interactions: {entitlementRequests, usedRequests,
@@ -118,14 +130,15 @@ report
         ├── ★ usage              {inputTokens, cacheReadTokens, cacheWriteTokens, outputTokens, reasoningTokens} summed
         ├── ★ premiumRequestCost sum of usage.cost for user-initiated calls (premium-request multiplier)
         ├── elapsedMs, modelState {value: 1 if the last round finished with "stop", completedAt}
-        ├── response[]           autoModeResolution / markdown / toolInvocation {toolId, toolCallId, message, isComplete, success}
+        ├── response[]           autoModeResolution / markdown / toolInvocation {toolId, toolCallId, message, isComplete, success, subAgent?}
+        │                        / subAgent {toolCallId, name, agentType, model, prompt, isComplete}
         └── result
             ├── details          synthesised in the VS Code UI format: "MAI-Code-1.1-Flash • 0.8 credits"
             └── metadata
                 ├── resolvedModel  model of the last billed round
-                └── toolCallRounds[] {turnId, modelId, toolCalls[{id,name}], thinking{tokens}, timestamp, endedAt,
+                └── toolCallRounds[] {turnId, subAgent{id,name}|null, modelId, toolCalls[{id,name}], thinking{tokens}, timestamp, endedAt,
                                       ★ usage{…}, ★ nanoAiu, ★ copilotCredits, premiumRequestCost,
-                                      initiator (user|agent), finishReason, durationMs, aiCreditsStatus}
+                                      initiator (user|agent|sub-agent), finishReason, durationMs, aiCreditsStatus}
 ```
 
 Ticket assignment (`ticketKey`) works exactly as in the VS Code collector

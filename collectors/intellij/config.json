@@ -1,0 +1,11 @@
+{
+  "_comment": "Defaults for collect.py. Command-line options override these. Relative paths are relative to this file; ~ and $VARS are expanded. ideDirs [] = every JetBrains config dir with aia-task-history. copilotHomes [] = $COPILOT_HOME or ~/.copilot (where the linked Copilot CLI sessions are). pluginDirs [] = ~/.config/github-copilot (GitHub Copilot plugin store). pluginClients: client_name globs of Copilot-plugin sessions. out null = stdout; e.g. \"../../reports/intellij.json\". Note: a file path here also receives --format tree output unless you pass --out -.",
+  "ideDirs": [],
+  "copilotHomes": [],
+  "pluginDirs": [],
+  "pluginClients": ["copilot-intellij*"],
+  "format": "json",
+  "out": null,
+  "includeEmpty": false,
+  "ticketPrefix": "LEGO"
+}

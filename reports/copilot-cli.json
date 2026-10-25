@@ -1,11 +1,27 @@
 {
   "collector": "copilot-cli",
-  "collectorVersion": "1.0.0",
-  "generatedAt": "2026-10-25T03:54:05.646885+00:00",
+  "collectorVersion": "1.2.0",
+  "generatedAt": "2026-10-25T04:28:33.116720+00:00",
   "copilotHomes": [
     "/Users/tmnghia/.copilot"
   ],
   "ticketPrefix": "LEGO",
+  "excludeClients": [
+    "JetBrains*",
+    "copilot-intellij*"
+  ],
+  "excludedSessions": [
+    {
+      "sessionId": "7fc75e38-cb0d-4f32-97b1-f339497f93cc",
+      "excludedBy": "copilot-intellij*",
+      "client": "copilot-intellij"
+    },
+    {
+      "sessionId": "b873e641-181d-4ace-9ad0-79fcf590c66e",
+      "excludedBy": "JetBrains*",
+      "client": "JetBrains.IntelliJ IDEA"
+    }
+  ],
   "totals": {
     "requests": 1,
     "billedRequests": 1,
@@ -249,6 +265,7 @@
               "toolCallRounds": [
                 {
                   "turnId": "0",
+                  "subAgent": null,
                   "modelId": "mai-code-1.1-flash",
                   "toolCalls": [
                     {
@@ -286,6 +303,7 @@
                 },
                 {
                   "turnId": "1",
+                  "subAgent": null,
                   "modelId": "mai-code-1.1-flash",
                   "toolCalls": [
                     {
@@ -323,6 +341,7 @@
                 },
                 {
                   "turnId": "2",
+                  "subAgent": null,
                   "modelId": "mai-code-1.1-flash",
                   "toolCalls": [
                     {
@@ -364,6 +383,7 @@
                 },
                 {
                   "turnId": "3",
+                  "subAgent": null,
                   "modelId": "mai-code-1.1-flash",
                   "toolCalls": [],
                   "thinking": {

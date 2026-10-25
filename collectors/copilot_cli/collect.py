@@ -14,12 +14,14 @@ Usage:
     python3 collect.py --include-empty        # keep sessions with no requests
     python3 collect.py --ticket-prefix ABC    # detect ABC-123 instead of LEGO-123
     python3 collect.py --config team.json     # other config file (default: ./config.json)
+    python3 collect.py --exclude-client ''    # also count IDE-driven sessions (default skips JetBrains ones)
 
 Precedence: command-line option > config file > built-in defaults.
 
 Standard library only; works on Python 3.8+.
 """
 import argparse
+import fnmatch
 import glob
 import json
 import os
@@ -31,7 +33,7 @@ from common import (DEFAULT_TICKET_PREFIX, add_common_args, credit_fields, epoch
                     totals_for, write_report)
 
 COLLECTOR = "copilot-cli"
-COLLECTOR_VERSION = "1.0.0"
+COLLECTOR_VERSION = "1.2.0"
 NANO = 1e9  # 1 AI credit = 1e9 nano-AIU
 DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
 # Used when neither the command line nor the config file sets a value.
@@ -41,6 +43,10 @@ BUILTIN_DEFAULTS = {
     "out": None,             # None -> stdout
     "includeEmpty": False,
     "ticketPrefix": DEFAULT_TICKET_PREFIX,
+    # workspace.yaml client_name globs to skip. JetBrains IDEs drive the CLI (AI Assistant over ACP:
+    # "JetBrains.*"; the GitHub Copilot plugin: "copilot-intellij") and are reported by
+    # collectors/intellij instead, so counting them here would double count.
+    "excludeClients": ["JetBrains*", "copilot-intellij*"],
 }
 
 
@@ -113,8 +119,8 @@ def new_request(data, ts, selected_model, version):
 
 
 def new_round(data, ts):
-    return {"turnId": data.get("turnId"), "modelId": None, "toolCalls": [], "thinking": {"tokens": None},
-            "timestamp": ts, "endedAt": None, "usage": None, "nanoAiu": None, "copilotCredits": None,
+    return {"turnId": data.get("turnId"), "subAgent": None, "modelId": None, "toolCalls": [],
+            "thinking": {"tokens": None}, "timestamp": ts, "endedAt": None, "usage": None, "nanoAiu": None, "copilotCredits": None,
             "premiumRequestCost": None, "initiator": None, "finishReason": None, "durationMs": None}
 
 
@@ -174,23 +180,46 @@ def build_session(session_dir, pattern, prefix):
     current_req = current_round = None
     pending_auto = None
     tool_parts = {}
+    # Sub-agents (e.g. the search sub-agent) log their own user.message / turns with a top-level
+    # "agentId" (= the parent's tool-call id). They belong to the parent request, not a new one.
+    sub_rounds, sub_parts = {}, {}
+
+    def round_for(ev):
+        agent = ev.get("agentId")
+        return sub_rounds.get(agent) if agent else current_round
     seen_usage = set()
     background, errors, quota = [], [], None
     checkpoint = None
 
     for ev in read_events(events_path):
         etype, data, ts = ev.get("type"), ev.get("data") or {}, epoch_ms(ev.get("timestamp"))
+        agent = ev.get("agentId")
         if etype == "session.start":
             session["sessionId"] = data.get("sessionId") or session["sessionId"]
             session["creationDate"] = epoch_ms(data.get("startTime")) or session["creationDate"]
             session["copilotVersion"] = data.get("copilotVersion")
             session["context"] = data.get("context") or {}
-        elif etype == "session.model_change":
+        elif etype == "session.model_change" and not agent:
             selected = {"identifier": data.get("newModel"), "metadata": {},
                         "modelConfiguration": {"reasoningEffort": data.get("reasoningEffort"),
                                                "contextTier": data.get("contextTier"), "source": data.get("source")}}
         elif etype == "session.auto_mode_resolved":
             pending_auto = {"kind": "autoModeResolution", "resolved": {"id": data.get("chosenModel")}}
+        elif etype == "subagent.started":
+            if current_req is None:
+                continue
+            part = {"kind": "subAgent", "toolCallId": data.get("toolCallId"),
+                    "name": data.get("agentDisplayName") or data.get("agentName"), "agentType": data.get("agentType"),
+                    "model": data.get("model"), "prompt": None, "isComplete": False}
+            sub_parts[agent or data.get("toolCallId")] = part
+            current_req["response"].append(part)
+        elif etype == "subagent.completed":
+            part = sub_parts.get(agent or data.get("toolCallId"))
+            if part:
+                part["isComplete"] = True
+        elif etype == "user.message" and agent:          # the sub-agent's task prompt
+            if agent in sub_parts:
+                sub_parts[agent]["prompt"] = data.get("content")
         elif etype == "user.message":
             key = data.get("interactionId")
             if key and key in by_interaction:          # steering message inside a running interaction
@@ -209,39 +238,50 @@ def build_session(session_dir, pattern, prefix):
         elif etype == "assistant.turn_start":
             if current_req is None:
                 continue
-            current_round = new_round(data, ts)
-            current_req["_rounds"].append(current_round)
-            rounds_by_event[ev.get("id")] = current_round
+            rnd = new_round(data, ts)
+            current_req["_rounds"].append(rnd)
+            rounds_by_event[ev.get("id")] = rnd
+            if agent:
+                rnd["subAgent"] = {"id": agent, "name": (sub_parts.get(agent) or {}).get("name")}
+                sub_rounds[agent] = rnd
+            else:
+                current_round = rnd
         elif etype == "assistant.turn_end":
-            if current_round is not None:
-                current_round["endedAt"] = ts
+            rnd = round_for(ev)
+            if rnd is not None:
+                rnd["endedAt"] = ts
         elif etype == "session.usage_record":
             usage = data.get("usage") or {}
             usage_id = (usage.get("accounting") or {}).get("usageId") or ev.get("id")
             if usage_id in seen_usage:                   # replayed after resume
                 continue
             seen_usage.add(usage_id)
-            rnd = rounds_by_event.get(ev.get("parentId")) or current_round
+            rnd = rounds_by_event.get(ev.get("parentId")) or round_for(ev)
             if rnd is None or rnd["usage"] is not None:  # no turn to hang it on: give it its own round
                 if current_req is None:
                     continue
                 rnd = new_round({"turnId": None}, ts)
+                if agent:
+                    rnd["subAgent"] = {"id": agent, "name": (sub_parts.get(agent) or {}).get("name")}
                 current_req["_rounds"].append(rnd)
             apply_usage(rnd, usage)
         elif etype == "assistant.message":
             if current_req is None:
                 continue
-            if current_round is not None:
-                current_round["modelId"] = current_round["modelId"] or data.get("model")
-                current_round["toolCalls"].extend(
+            rnd = round_for(ev)
+            if rnd is not None:
+                rnd["modelId"] = rnd["modelId"] or data.get("model")
+                rnd["toolCalls"].extend(
                     {"id": t.get("toolCallId"), "name": t.get("name")} for t in data.get("toolRequests") or [])
-            if data.get("content"):
+            if data.get("content") and not agent:       # sub-agent answers go to the parent, not the user
                 current_req["response"].append({"kind": "markdown", "text": data.get("content")})
         elif etype == "tool.execution_start":
             if current_req is None:
                 continue
             part = {"kind": "toolInvocation", "toolId": data.get("toolName"), "toolCallId": data.get("toolCallId"),
                     "message": data.get("toolTitle") or data.get("toolName"), "isComplete": False}
+            if agent:
+                part["subAgent"] = agent
             tool_parts[data.get("toolCallId")] = part
             current_req["response"].append(part)
         elif etype == "tool.execution_complete":
@@ -329,11 +369,21 @@ def account_quota(sessions):
     return out
 
 
-def collect(copilot_homes, include_empty=False, ticket_prefix=DEFAULT_TICKET_PREFIX):
+def excluded_client(session_dir, exclude_clients):
+    client = read_workspace_yaml(session_dir).get("client_name") or ""
+    return next((pat for pat in exclude_clients if pat and fnmatch.fnmatch(client, pat)), None)
+
+
+def collect(copilot_homes, include_empty=False, ticket_prefix=DEFAULT_TICKET_PREFIX, exclude_clients=()):
     pattern = ticket_pattern(ticket_prefix)
-    sessions, errors = [], []
+    sessions, errors, excluded = [], [], []
     for home in copilot_homes:
         for session_dir in find_session_dirs(home):
+            matched = excluded_client(session_dir, exclude_clients)
+            if matched:
+                excluded.append({"sessionId": os.path.basename(session_dir), "excludedBy": matched,
+                                 "client": read_workspace_yaml(session_dir).get("client_name")})
+                continue
             try:
                 session = build_session(session_dir, pattern, ticket_prefix)
             except (OSError, ValueError, KeyError, IndexError, TypeError) as exc:
@@ -348,6 +398,8 @@ def collect(copilot_homes, include_empty=False, ticket_prefix=DEFAULT_TICKET_PRE
         "generatedAt": now_iso(),
         "copilotHomes": copilot_homes,
         "ticketPrefix": ticket_prefix.upper(),
+        "excludeClients": list(exclude_clients),
+        "excludedSessions": excluded,
         **summarise(sessions, lambda s: s["_source"]["workspace"]["folder"] or "(unknown cwd)"),
         "account": {"quota": account_quota(sessions)},
         "sessions": sessions,
@@ -370,6 +422,8 @@ def render(report):
                                  q.get("remainingPercentage"), q.get("resetDate")))
     header.append("├── premiumRequests=%s  backgroundCredits=%s"
                   % (report["totals"]["premiumRequests"], fmt_num(report["totals"]["backgroundCredits"])))
+    for x in report["excludedSessions"]:
+        header.append("├── skipped %s  client=%s  (excludeClients %s)" % (x["sessionId"], x["client"], x["excludedBy"]))
 
     def session_lines(s):
         lines = ["├── repository=%s  branch=%s  copilotVersion=%s"
@@ -403,6 +457,9 @@ def main(argv=None):
         epilog="Options not given on the command line come from the config file, then built-in defaults.")
     ap.add_argument("--copilot-home", action="append",
                     help="Copilot CLI home directory (repeatable). Default: $COPILOT_HOME or ~/.copilot.")
+    ap.add_argument("--exclude-client", action="append",
+                    help="Skip sessions whose client_name matches this glob (repeatable; replaces the config "
+                         "list; '' = skip none). Built-in default: JetBrains*, copilot-intellij*.")
     add_common_args(ap)
     args = ap.parse_args(argv)
 
@@ -419,7 +476,8 @@ def main(argv=None):
     if fmt not in ("json", "tree"):
         ap.error("format must be json or tree, got %r" % fmt)
     report = collect(homes, include_empty=bool(opt(args.include_empty, "includeEmpty")),
-                     ticket_prefix=opt(args.ticket_prefix, "ticketPrefix"))
+                     ticket_prefix=opt(args.ticket_prefix, "ticketPrefix"),
+                     exclude_clients=[c for c in opt(args.exclude_client, "excludeClients") if c])
     write_report(report, fmt, opt(args.out, "out"), render)
 
 
