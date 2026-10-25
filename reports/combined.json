@@ -1,12 +1,12 @@
 {
   "collector": "master",
-  "collectorVersion": "1.0.0",
-  "generatedAt": "2026-10-25T10:23:21.529341+00:00",
+  "collectorVersion": "1.1.0",
+  "generatedAt": "2026-10-25T13:38:11.623754+00:00",
   "sources": [
     {
       "collector": "vscode-copilot-chat",
       "collectorVersion": "1.3.0",
-      "generatedAt": "2026-10-25T10:23:21.489406+00:00",
+      "generatedAt": "2026-10-25T13:38:11.595028+00:00",
       "file": "/Volumes/Data Ext/project/dashboard/reports/vscode-copilot.json",
       "sessions": 2,
       "totals": {
@@ -27,7 +27,7 @@
     {
       "collector": "copilot-cli",
       "collectorVersion": "1.3.0",
-      "generatedAt": "2026-10-25T10:23:21.502289+00:00",
+      "generatedAt": "2026-10-25T13:38:11.603921+00:00",
       "file": "/Volumes/Data Ext/project/dashboard/reports/copilot-cli.json",
       "sessions": 1,
       "totals": {
@@ -51,7 +51,7 @@
     {
       "collector": "intellij",
       "collectorVersion": "1.1.0",
-      "generatedAt": "2026-10-25T10:23:21.523958+00:00",
+      "generatedAt": "2026-10-25T13:38:11.621016+00:00",
       "file": "/Volumes/Data Ext/project/dashboard/reports/intellij.json",
       "sessions": 2,
       "totals": {
@@ -3195,6 +3195,14 @@
     }
   ],
   "errors": [],
+  "member": {
+    "id": "jonney17",
+    "name": "jonney17",
+    "email": null,
+    "githubLogin": "jonney17",
+    "machine": "Truongs-Mac-mini.local",
+    "idSource": "github-login"
+  },
   "run": {
     "configFile": "/Volumes/Data Ext/project/dashboard/collect.config.json",
     "ticketPrefix": "LEGO",

@@ -1,0 +1,10 @@
+{
+  "_comment": "Config for consolidate.py: merges team members' combined.json files into one ai-usage file for the team dashboard. Relative paths resolve against this file's folder; ~ and $VARS are expanded. inputs (explicit files) is used instead of inputDir when non-empty. content: none = usage data only (default, nothing personal leaves the member's report), titles = also session titles, full = also prompts and answers. output null = stdout. Keys starting with _ are ignored; unknown keys are an error.",
+  "team": "LEGO",
+  "inputDir": "team-reports",
+  "pattern": "*.json",
+  "inputs": [],
+  "output": "ai-usage.json",
+  "format": "json",
+  "content": "none"
+}

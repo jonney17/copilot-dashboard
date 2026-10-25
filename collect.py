@@ -19,9 +19,11 @@ Precedence: command-line option > collect.config.json > built-in defaults.
 Standard library only; works on Python 3.8+.
 """
 import argparse
+import getpass
 import importlib.util
 import json
 import os
+import socket
 import sys
 import traceback
 
@@ -30,11 +32,14 @@ COLLECTORS_DIR = os.path.join(ROOT, "collectors")
 sys.path.insert(0, COLLECTORS_DIR)
 from common import DEFAULT_TICKET_PREFIX, now_iso, vscode_user_dirs, write_report  # noqa: E402
 
-MASTER_VERSION = "1.0.0"
+MASTER_VERSION = "1.1.0"
 DEFAULT_CONFIG_PATH = os.path.join(ROOT, "collect.config.json")
 
 # Built-in defaults; collect.config.json overrides any of them. Keys are validated: a typo is an error.
 BUILTIN_DEFAULTS = {
+    # Who this report belongs to, so team reports can be consolidated (see consolidate.py).
+    # null id = GitHub login from ~/.copilot/config.json, else the OS user name.
+    "member": {"id": None, "name": None, "email": None},
     "ticketPrefix": DEFAULT_TICKET_PREFIX,   # shared by all collectors
     "includeEmpty": False,                   # keep sessions without requests
     "outputDir": "reports",                  # base for relative report paths
@@ -89,6 +94,8 @@ def _merge(defaults, data, where):
             raise SystemExit("%s.%s must be a list" % (where, key))
         elif isinstance(default, bool) and not isinstance(value, bool):
             raise SystemExit("%s.%s must be true or false" % (where, key))
+        elif default is None and value is not None and not isinstance(value, str):
+            raise SystemExit("%s.%s must be a string or null" % (where, key))
         else:
             merged[key] = value
     return merged
@@ -125,6 +132,25 @@ def load_master_config(path, explicit):
         config["combinedReport"] = resolve(config["combinedReport"], config["outputDir"])
     config["_configFile"] = path if os.path.isfile(path) else None
     return config
+
+
+def github_login():
+    """Login the Copilot CLI last signed in with (~/.copilot/config.json, which has // comment lines)."""
+    path = os.path.join(os.environ.get("COPILOT_HOME") or os.path.expanduser("~/.copilot"), "config.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            text = "\n".join(line for line in f if not line.lstrip().startswith("//"))
+        return (json.loads(text).get("lastLoggedInUser") or {}).get("login")
+    except (OSError, ValueError, AttributeError):
+        return None
+
+
+def resolve_member(cfg):
+    login = github_login()
+    member_id = cfg.get("id") or login or getpass.getuser()
+    source = "config" if cfg.get("id") else ("github-login" if login else "os-user")
+    return {"id": member_id, "name": cfg.get("name") or member_id, "email": cfg.get("email"),
+            "githubLogin": login, "machine": socket.gethostname(), "idSource": source}
 
 
 # --------------------------------------------------------------------------- #
@@ -236,6 +262,7 @@ def main(argv=None):
     final["collector"] = "master"
     final["collectorVersion"] = MASTER_VERSION
     final["generatedAt"] = now_iso()
+    final["member"] = resolve_member(config["member"])
     final["run"] = {"configFile": config["_configFile"], "ticketPrefix": config["ticketPrefix"].upper(),
                     "includeEmpty": config["includeEmpty"], "collectors": runs}
 
@@ -244,7 +271,8 @@ def main(argv=None):
 
     def render(report):
         lines = combine.render(report).split("\n")
-        status = ["├── run %s: %s%s%s" % (r["collector"], r["status"],
+        m = report["member"]
+        status = ["├── member %s (%s)  machine=%s  id from %s" % (m["id"], m["name"], m["machine"], m["idSource"])] + ["├── run %s: %s%s%s" % (r["collector"], r["status"],
                                          "  sessions=%s credits=%s" % (r["sessions"], r["copilotCredits"])
                                          if r["status"] == "ok" else "",
                                          "  (%s)" % r["error"] if r["error"] else "")
